@@ -19,3 +19,16 @@ C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Base
 C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\VWIDE.pdb
 C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\VWIDE.genruntimeconfig.cache
 C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\ref\VWIDE.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\ICSharpCode.AvalonEdit.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\VWIDE.csproj.AssemblyReference.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\VWIDE_Content.g.cs
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\VWIDE.csproj.Up2Date

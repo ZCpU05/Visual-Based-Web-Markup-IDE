@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VWIDE"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="VwIDE" Height="450" Width="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="791*"/>
+        </Grid.ColumnDefinitions>
+        <Menu Height="30" VerticalAlignment="Top" Background="Gray" Grid.ColumnSpan="2">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Click="openMenuItem_Click"></MenuItem>
+                <MenuItem Header="_Save" Click="saveMenuItem_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <avalonEdit:TextEditor
+            xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+            x:Name="textEditor"
+            SyntaxHighlighting="C#"
+            FontFamily="Consolas"
+            FontSize="10pt" Grid.ColumnSpan="2" Margin="0,30,0,0"
+            ShowLineNumbers="True"/>
     </Grid>
 </Window>
