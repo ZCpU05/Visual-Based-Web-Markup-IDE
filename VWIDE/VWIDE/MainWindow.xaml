@@ -4,34 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VWIDE"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="VwIDE" Height="450" Width="800">
+        Title="VwIDE" Height="600" Width="900">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="9*"/>
-            <ColumnDefinition Width="791*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Menu Height="30" VerticalAlignment="Top" Background="Gray" Grid.ColumnSpan="2">
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Background="Gray">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Click="openMenuItem_Click"></MenuItem>
                 <MenuItem Header="_Save" Click="saveMenuItem_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Edit">
-                
-            </MenuItem>
-            <MenuItem Header="_View">
-
-            </MenuItem>
-            <MenuItem Header="_PHP">
-
-            </MenuItem>
+            <MenuItem Header="_Edit"/>
+            <MenuItem Header="_View"/>
+            <MenuItem Header="_PHP"/>
         </Menu>
-        <avalonEdit:TextEditor
-            xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-            x:Name="textEditor"
-            SyntaxHighlighting="C#"
-            FontFamily="Consolas"
-            FontSize="10pt" Grid.ColumnSpan="2" Margin="0,30,0,0"
-            ShowLineNumbers="True"/>
+
+        <avalonEdit:TextEditor Grid.Row="1" Grid.Column="0"
+        SyntaxHighlighting="HTML" 
+        x:Name="textEditor"
+        FontFamily="Consolas"
+        FontSize="10pt" 
+        ShowLineNumbers="True" 
+        TextChanged="textEditor_TextChanged"
+        Margin="10"/>
+
+        <wv2:WebView2 x:Name="visualWebTester" Grid.Row="1" Grid.Column="1" Margin="10" />
+
     </Grid>
 </Window>

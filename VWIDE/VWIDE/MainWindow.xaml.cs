@@ -28,6 +28,16 @@ namespace VWIDE
         public MainWindow()
         {
             InitializeComponent();
+            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            {
+                InitializeWebView();
+            }
+        }
+
+        private async void InitializeWebView()
+        {
+            await visualWebTester.EnsureCoreWebView2Async(null);
+            updateWebView();
         }
         private void openMenuItem_Click(object sender, RoutedEventArgs e) //runs when open button is clicked from file
         {
@@ -45,7 +55,7 @@ namespace VWIDE
                 System.Windows.MessageBox.Show("unforseen error file failed to save!");
             }
         }
-        private void getFile() //calls an open file dialouge and gets the selected file
+        private void getFile() // calls an open file dialogue and gets the selected file
         {
             string fileContent = string.Empty;
             string filePath = string.Empty;
@@ -69,11 +79,13 @@ namespace VWIDE
                 {
                     fileContent = reader.ReadToEnd();
                 }
-            }
+                openFileObject openedFile = new openFileObject(filePath);
+                openFiles.Add(openedFile);
 
-            textEditor.Text = fileContent; //Writes the file contents to the text editor
-            openFileObject openedFile = new openFileObject(filePath);
-            openFiles.Add(openedFile);
+                currID = openFiles.Count - 1;
+
+                textEditor.Text = fileContent;
+            }
         }
         public static void incramentGlobalID()
         {
@@ -82,6 +94,19 @@ namespace VWIDE
         public static void decramentGlobalID()
         {
             globalIDIndex--;
+        }
+        private void updateWebView()
+        {
+            if(visualWebTester != null && visualWebTester.CoreWebView2 != null)
+            {
+                string content = textEditor.Text;
+
+                visualWebTester.CoreWebView2.NavigateToString(content);
+            }
+        }
+        private void textEditor_TextChanged(object sender, EventArgs e)
+        {
+            updateWebView();
         }
     }
     public class openFileObject
