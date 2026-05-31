@@ -16,6 +16,15 @@
                 <MenuItem Header="_Open" Click="openMenuItem_Click"></MenuItem>
                 <MenuItem Header="_Save" Click="saveMenuItem_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="_Edit">
+                
+            </MenuItem>
+            <MenuItem Header="_View">
+
+            </MenuItem>
+            <MenuItem Header="_PHP">
+
+            </MenuItem>
         </Menu>
         <avalonEdit:TextEditor
             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"

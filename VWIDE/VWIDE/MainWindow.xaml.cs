@@ -16,9 +16,15 @@ namespace VWIDE
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
         bool phpEnabled = false;
+        public static int globalIDIndex = 0;
+        int currID = 0; //update to null by default later
+
+        List<openFileObject> openFiles = new List<openFileObject>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +35,15 @@ namespace VWIDE
         }
         private void saveMenuItem_Click(object sender, RoutedEventArgs e) //runs when save button is clicked from file
         {
-            System.Windows.MessageBox.Show("Saving file");
+            try
+            {
+                File.WriteAllText(openFiles[currID].path, textEditor.Text);
+                System.Windows.MessageBox.Show("file saved!");
+            }
+            catch 
+            {
+                System.Windows.MessageBox.Show("unforseen error file failed to save!");
+            }
         }
         private void getFile() //calls an open file dialouge and gets the selected file
         {
@@ -58,6 +72,28 @@ namespace VWIDE
             }
 
             textEditor.Text = fileContent; //Writes the file contents to the text editor
+            openFileObject openedFile = new openFileObject(filePath);
+            openFiles.Add(openedFile);
+        }
+        public static void incramentGlobalID()
+        {
+            globalIDIndex++;
+        }
+        public static void decramentGlobalID()
+        {
+            globalIDIndex--;
+        }
+    }
+    public class openFileObject
+    {
+        //public string fileName { get; set; }
+        public string path { get; set; }
+        int iD;
+        public openFileObject(string pth)
+        {
+            path = pth;
+            iD = MainWindow.globalIDIndex;
+            MainWindow.incramentGlobalID();
         }
     }
 }
