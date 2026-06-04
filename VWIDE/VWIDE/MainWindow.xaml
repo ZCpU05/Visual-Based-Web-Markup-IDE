@@ -24,22 +24,42 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Click="openMenuItem_Click"></MenuItem>
                 <MenuItem Header="_Save" Click="saveMenuItem_Click"></MenuItem>
+                <MenuItem Header="_Save As" Click="saveAsMenuItem_Click"></MenuItem>
+                <MenuItem Header="_New" Click="newMenuItem_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Edit"/>
-            <MenuItem Header="_View"/>
+            <MenuItem Header="_View">
+                <TextBox Text="Accessibility settings go here"/>
+            </MenuItem>
             <MenuItem Header="_PHP"/>
         </Menu>
 
-        <avalonEdit:TextEditor Grid.Row="1" Grid.Column="0"
-        SyntaxHighlighting="HTML" 
-        x:Name="textEditor"
-        FontFamily="Consolas"
-        FontSize="10pt" 
-        ShowLineNumbers="True" 
-        TextChanged="textEditor_TextChanged"
-        Margin="10"/>
+        <TabControl Grid.Row="1" Grid.Column="0" 
+                    x:Name="filesTabs"
+                    Margin="2,2,2,2"
+                    SelectionChanged="filesTabs_SelectionChanged">
 
-        <wv2:WebView2 x:Name="visualWebTester" Grid.Row="1" Grid.Column="1" Margin="10" />
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding fileName}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <avalonEdit:TextEditor 
+                        x:Name="textEditor"
+                        SyntaxHighlighting="HTML" 
+                        FontFamily="Consolas"
+                        FontSize="10pt" 
+                        ShowLineNumbers="True"
+                        TextChanged="textEditor_TextChanged"/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+
+        </TabControl>
+
+        <wv2:WebView2 x:Name="visualWebTester" Grid.Row="1" Grid.Column="1" Margin="0,5,5,1" />
 
     </Grid>
 </Window>
