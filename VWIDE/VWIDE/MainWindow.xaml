@@ -31,7 +31,15 @@
             <MenuItem Header="_View">
                 <TextBox Text="Accessibility settings go here"/>
             </MenuItem>
-            <MenuItem Header="_PHP"/>
+            <MenuItem Header="_PHP">
+                <MenuItem Header="_Enable/Disable PHP" Click="phpEnable_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Project">
+                <MenuItem Header="_Project directory viewer"></MenuItem>
+                <MenuItem Header="_Git Reporsitory Enable/Disable"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Settings">
+            </MenuItem>
         </Menu>
 
         <TabControl Grid.Row="1" Grid.Column="0" 

@@ -13,7 +13,10 @@
     <SourceRoot Include="C:\Users\ZCpU0\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)libgit2sharp.nativebinaries\2.0.323\build\LibGit2Sharp.NativeBinaries.props" Condition="Exists('$(NuGetPackageRoot)libgit2sharp.nativebinaries\2.0.323\build\LibGit2Sharp.NativeBinaries.props')" />
+  </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_Web_WebView2 Condition=" '$(PkgMicrosoft_Web_WebView2)' == '' ">C:\Users\ZCpU0\.nuget\packages\microsoft.web.webview2\1.0.3967.48</PkgMicrosoft_Web_WebView2>
+    <PkgMicrosoft_Web_WebView2 Condition=" '$(PkgMicrosoft_Web_WebView2)' == '' ">C:\Users\ZCpU0\.nuget\packages\microsoft.web.webview2\1.0.4022.49</PkgMicrosoft_Web_WebView2>
   </PropertyGroup>
 </Project>

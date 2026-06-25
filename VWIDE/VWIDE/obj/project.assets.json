@@ -18,7 +18,82 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
-      "Microsoft.Web.WebView2/1.0.3967.48": {
+      "LibGit2Sharp/0.31.0": {
+        "type": "package",
+        "dependencies": {
+          "LibGit2Sharp.NativeBinaries": "[2.0.323]"
+        },
+        "compile": {
+          "lib/net8.0/LibGit2Sharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/LibGit2Sharp.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "LibGit2Sharp.NativeBinaries/2.0.323": {
+        "type": "package",
+        "build": {
+          "build/LibGit2Sharp.NativeBinaries.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/LibGit2Sharp.NativeBinaries.props": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/libgit2-3f4182d.so": {
+            "assetType": "native",
+            "rid": "linux-arm"
+          },
+          "runtimes/linux-arm64/native/libgit2-3f4182d.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-musl-arm/native/libgit2-3f4182d.so": {
+            "assetType": "native",
+            "rid": "linux-musl-arm"
+          },
+          "runtimes/linux-musl-arm64/native/libgit2-3f4182d.so": {
+            "assetType": "native",
+            "rid": "linux-musl-arm64"
+          },
+          "runtimes/linux-musl-x64/native/libgit2-3f4182d.so": {
+            "assetType": "native",
+            "rid": "linux-musl-x64"
+          },
+          "runtimes/linux-ppc64le/native/libgit2-3f4182d.so": {
+            "assetType": "native",
+            "rid": "linux-ppc64le"
+          },
+          "runtimes/linux-x64/native/libgit2-3f4182d.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-arm64/native/libgit2-3f4182d.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-x64/native/libgit2-3f4182d.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-arm64/native/git2-3f4182d.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          },
+          "runtimes/win-x64/native/git2-3f4182d.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/git2-3f4182d.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "Microsoft.Web.WebView2/1.0.4022.49": {
         "type": "package",
         "build": {
           "buildTransitive/Microsoft.Web.WebView2.targets": {}
@@ -60,10 +135,59 @@
         "lib/net8.0-windows7.0/ICSharpCode.AvalonEdit.xml"
       ]
     },
-    "Microsoft.Web.WebView2/1.0.3967.48": {
-      "sha512": "b7dZ5kZ9bfU5Yo11M8feCOoiyalXCN+2Gsw674RBDBmQ2dJV5EOXb8/ivN2LuLJ+VO2V7FmK6l6LsyfEnG1lXw==",
+    "LibGit2Sharp/0.31.0": {
+      "sha512": "b3+UfV7LjKMjAHWwl7VawejiOv2gJIC6dTCA/S0puLTHACAA/Oeb5JJmWUQMeyH/T/WR/LaIK8bk2RbdFnrZvg==",
       "type": "package",
-      "path": "microsoft.web.webview2/1.0.3967.48",
+      "path": "libgit2sharp/0.31.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "App_Readme/CHANGES.md",
+        "App_Readme/LICENSE.md",
+        "App_Readme/README.md",
+        "lib/net472/LibGit2Sharp.dll",
+        "lib/net472/LibGit2Sharp.xml",
+        "lib/net8.0/LibGit2Sharp.dll",
+        "lib/net8.0/LibGit2Sharp.xml",
+        "libgit2sharp.0.31.0.nupkg.sha512",
+        "libgit2sharp.nuspec",
+        "square-logo.png"
+      ]
+    },
+    "LibGit2Sharp.NativeBinaries/2.0.323": {
+      "sha512": "Kg+fJGWhGj5qRXG0Ilj4ddhuodGXZg57yhfX6OVUDR0M2DKg/UR42/d74+qv5l1qotc1qJilo/ho7xQnULP6yA==",
+      "type": "package",
+      "path": "libgit2sharp.nativebinaries/2.0.323",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/LibGit2Sharp.NativeBinaries.props",
+        "build/net46/LibGit2Sharp.NativeBinaries.props",
+        "buildMultiTargeting/LibGit2Sharp.NativeBinaries.props",
+        "libgit2/LibGit2Sharp.dll.config",
+        "libgit2/libgit2.license.txt",
+        "libgit2/libgit2.png",
+        "libgit2/libgit2_hash.txt",
+        "libgit2sharp.nativebinaries.2.0.323.nupkg.sha512",
+        "libgit2sharp.nativebinaries.nuspec",
+        "runtimes/linux-arm/native/libgit2-3f4182d.so",
+        "runtimes/linux-arm64/native/libgit2-3f4182d.so",
+        "runtimes/linux-musl-arm/native/libgit2-3f4182d.so",
+        "runtimes/linux-musl-arm64/native/libgit2-3f4182d.so",
+        "runtimes/linux-musl-x64/native/libgit2-3f4182d.so",
+        "runtimes/linux-ppc64le/native/libgit2-3f4182d.so",
+        "runtimes/linux-x64/native/libgit2-3f4182d.so",
+        "runtimes/osx-arm64/native/libgit2-3f4182d.dylib",
+        "runtimes/osx-x64/native/libgit2-3f4182d.dylib",
+        "runtimes/win-arm64/native/git2-3f4182d.dll",
+        "runtimes/win-x64/native/git2-3f4182d.dll",
+        "runtimes/win-x86/native/git2-3f4182d.dll"
+      ]
+    },
+    "Microsoft.Web.WebView2/1.0.4022.49": {
+      "sha512": "Dwewh8bbbXoFiF2y0jT3MBEV5ZXZVA7FDbMl6DixUCCLQAoymLMxMwqibdBaY/eWCG/BBSAILUOFDIzJZ9lfNQ==",
+      "type": "package",
+      "path": "microsoft.web.webview2/1.0.4022.49",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -109,7 +233,7 @@
         "lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.xml",
         "lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll",
         "lib_manual/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.xml",
-        "microsoft.web.webview2.1.0.3967.48.nupkg.sha512",
+        "microsoft.web.webview2.1.0.4022.49.nupkg.sha512",
         "microsoft.web.webview2.nuspec",
         "runtimes/win-arm64/native/WebView2Loader.dll",
         "runtimes/win-arm64/native_uap/Microsoft.Web.WebView2.Core.dll",
@@ -161,7 +285,9 @@
   "projectFileDependencyGroups": {
     "net9.0-windows7.0": [
       "AvalonEdit >= 6.3.1.120",
-      "Microsoft.Web.WebView2 >= 1.0.3967.48"
+      "LibGit2Sharp >= 0.31.0",
+      "LibGit2Sharp.NativeBinaries >= 2.0.323",
+      "Microsoft.Web.WebView2 >= 1.0.4022.49"
     ]
   },
   "packageFolders": {
@@ -218,9 +344,17 @@
             "target": "Package",
             "version": "[6.3.1.120, )"
           },
+          "LibGit2Sharp": {
+            "target": "Package",
+            "version": "[0.31.0, )"
+          },
+          "LibGit2Sharp.NativeBinaries": {
+            "target": "Package",
+            "version": "[2.0.323, )"
+          },
           "Microsoft.Web.WebView2": {
             "target": "Package",
-            "version": "[1.0.3967.48, )"
+            "version": "[1.0.4022.49, )"
           }
         },
         "imports": [
@@ -242,7 +376,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.314/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

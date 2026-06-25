@@ -54,9 +54,17 @@
               "target": "Package",
               "version": "[6.3.1.120, )"
             },
+            "LibGit2Sharp": {
+              "target": "Package",
+              "version": "[0.31.0, )"
+            },
+            "LibGit2Sharp.NativeBinaries": {
+              "target": "Package",
+              "version": "[2.0.323, )"
+            },
             "Microsoft.Web.WebView2": {
               "target": "Package",
-              "version": "[1.0.3967.48, )"
+              "version": "[1.0.4022.49, )"
             }
           },
           "imports": [
@@ -78,7 +86,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.314/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.315/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

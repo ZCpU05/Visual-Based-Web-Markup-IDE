@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Diagnostics;
+using LibGit2Sharp;
 
 namespace VWIDE
 {
@@ -16,7 +18,11 @@ namespace VWIDE
     /// 
     public partial class MainWindow : Window
     {
-        bool phpEnabled = false;
+        bool phpEnabled = false; //line 1 in config.txt
+        bool darkMode = false; //line 2 in config.txt
+        bool projectOpen = false; //line 3 in config.txt
+        bool reporistoryEnabled = false; //line 4 in config.txt
+
         public static int globalIDIndex = 0;
         int currID = 0;
 
@@ -39,7 +45,10 @@ namespace VWIDE
         {
             get
             {
-                if (filesTabs.SelectedIndex == -1) return null;
+                if (filesTabs.SelectedIndex == -1)
+                {
+                    return null;
+                }
                 var cp = filesTabs.Template.FindName("PART_SelectedContentHost", filesTabs) as ContentPresenter;
                 if (cp == null) return null;
                 return FindVisualChild<TextEditor>(cp);
@@ -54,7 +63,14 @@ namespace VWIDE
 
                 if (visualWebTester != null && visualWebTester.CoreWebView2 != null)
                 {
-                    visualWebTester.CoreWebView2.NavigateToString(openFiles[currID].content ?? "");
+                    if (phpEnabled)
+                    {
+                        visualWebTester.CoreWebView2.Navigate("file:///vwide_preview.php");
+                    }
+                    else
+                    {
+                        visualWebTester.CoreWebView2.NavigateToString(openFiles[currID].content ?? "");
+                    }
                 }
 
                 if (CurrentTextEditor != null)
@@ -72,6 +88,13 @@ namespace VWIDE
         {
             await visualWebTester.EnsureCoreWebView2Async(null);
             updateWebView();
+
+            visualWebTester.CoreWebView2.AddWebResourceRequestedFilter(
+                "file:///*",
+                Microsoft.Web.WebView2.Core.CoreWebView2WebResourceContext.All
+            ); //Filter only for local files
+
+            visualWebTester.CoreWebView2.WebResourceRequested += OnWebResourceRequested; //Intercepts web resource request
         }
         private void openMenuItem_Click(object sender, RoutedEventArgs e) //runs when open button is clicked from file
         {
@@ -95,6 +118,20 @@ namespace VWIDE
             {
                 System.Windows.MessageBox.Show("unforseen error file failed to save!");
             }
+        }
+        private void phpEnable_Click(object sender, RoutedEventArgs e) //switches the php flag to enabled and adds activates the php server
+        {
+            if (phpEnabled == false)
+            {
+                phpEnabled = true;
+                MessageBox.Show("php server enabled");
+            }
+            else
+            {
+                phpEnabled = false;
+                MessageBox.Show("php server disabled");
+            }
+
         }
         private void getFile() // calls an open file dialogue and gets the selected file
         {
@@ -188,9 +225,15 @@ namespace VWIDE
         {
             if (visualWebTester != null && visualWebTester.CoreWebView2 != null && CurrentTextEditor != null)
             {
-                string content = CurrentTextEditor.Text;
-
-                visualWebTester.CoreWebView2.NavigateToString(content);
+                if (phpEnabled)
+                {
+                    visualWebTester.CoreWebView2.Navigate("file:///vwide_preview.php");
+                }
+                else
+                {
+                    string content = CurrentTextEditor.Text;
+                    visualWebTester.CoreWebView2.NavigateToString(content);
+                }
             }
         }
         private void textEditor_TextChanged(object sender, EventArgs e)
@@ -215,6 +258,13 @@ namespace VWIDE
                 if (childOfChild != null) return childOfChild;
             }
             return null;
+        }
+        private void OnWebResourceRequested(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebResourceRequestedEventArgs e) //event passing php code to computer ran php server
+        {
+            if(phpEnabled == true && CurrentTextEditor != null)
+            {
+                //FINISHS
+            }
         }
     }
     public class openFileObject
