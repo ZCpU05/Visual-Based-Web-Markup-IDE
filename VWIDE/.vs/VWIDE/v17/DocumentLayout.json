@@ -1,17 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\",
+  "WorkspaceRootPath": "C:\\GitHub\\VwIDE\\VWIDE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\github\\vwide\\vwide\\vwide\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\github\\vwide\\vwide\\vwide\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\config.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\github\\vwide\\vwide\\vwide\\config.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\config.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,41 +34,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "config.txt",
-              "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\config.txt",
-              "RelativeDocumentMoniker": "VWIDE\\config.txt",
-              "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\config.txt",
-              "RelativeToolTip": "VWIDE\\config.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2026-06-25T18:47:10.391Z",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\GitHub\\VwIDE\\VWIDE\\VWIDE\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "VWIDE\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\GitHub\\VwIDE\\VWIDE\\VWIDE\\MainWindow.xaml.cs",
+              "RelativeToolTip": "VWIDE\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-27T13:13:24.088Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\GitHub\\VwIDE\\VWIDE\\VWIDE\\MainWindow.xaml",
               "RelativeDocumentMoniker": "VWIDE\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\MainWindow.xaml",
+              "ToolTip": "C:\\GitHub\\VwIDE\\VWIDE\\VWIDE\\MainWindow.xaml",
               "RelativeToolTip": "VWIDE\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-27T13:13:27.992Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-27T13:13:27.992Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "VWIDE\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\MainWindow.xaml.cs",
-              "RelativeToolTip": "VWIDE\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAOMAAAAAAAAAAAAqwAkBAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-27T13:13:24.088Z",
-              "EditorCaption": ""
+              "DocumentIndex": 2,
+              "Title": "config.txt",
+              "DocumentMoniker": "C:\\GitHub\\VwIDE\\VWIDE\\VWIDE\\config.txt",
+              "RelativeDocumentMoniker": "VWIDE\\config.txt",
+              "ToolTip": "C:\\GitHub\\VwIDE\\VWIDE\\VWIDE\\config.txt",
+              "RelativeToolTip": "VWIDE\\config.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-06-25T18:47:10.391Z"
             }
           ]
         }

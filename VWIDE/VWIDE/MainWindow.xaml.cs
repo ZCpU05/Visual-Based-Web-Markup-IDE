@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Diagnostics;
 using LibGit2Sharp;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace VWIDE
 {
@@ -41,6 +43,49 @@ namespace VWIDE
             filesTabs.SelectedItem = openedFile;
         }
 
+        public async Task<string> runPHP(string phpCode)
+        {
+            string phpPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "php", "php.exe");
+
+            if (!File.Exists(phpPath))
+            {
+                MessageBox.Show("PHP executable not found.");
+                return null;
+            }
+
+            string tempFilePath = Path.Combine(Path.GetTempPath(), "vwide_preview.php");
+            await File.WriteAllTextAsync(tempFilePath, phpCode, Encoding.UTF8);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = phpPath,
+                Arguments = $"\"{tempFilePath}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            try
+            {
+                using (Process process = new Process { StartInfo = startInfo })
+                {
+                    process.Start();
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
+                    process.WaitForExit();
+
+                    if (File.Exists(tempFilePath)) File.Delete(tempFilePath);
+
+                    return string.IsNullOrEmpty(error) ? output : $"PHP Error: {error}";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Process Error: {ex.Message}";
+            }
+        }
+
         private TextEditor CurrentTextEditor
         {
             get
@@ -61,40 +106,26 @@ namespace VWIDE
             {
                 currID = filesTabs.SelectedIndex;
 
-                if (visualWebTester != null && visualWebTester.CoreWebView2 != null)
+                Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    if (phpEnabled)
+                    if (CurrentTextEditor != null)
                     {
-                        visualWebTester.CoreWebView2.Navigate("file:///vwide_preview.php");
+                        CurrentTextEditor.TextChanged -= textEditor_TextChanged;
+
+                        CurrentTextEditor.Text = openFiles[currID].content ?? "";
+
+                        CurrentTextEditor.TextChanged += textEditor_TextChanged;
                     }
-                    else
-                    {
-                        visualWebTester.CoreWebView2.NavigateToString(openFiles[currID].content ?? "");
-                    }
-                }
 
-                if (CurrentTextEditor != null)
-                {
-                    CurrentTextEditor.TextChanged -= textEditor_TextChanged;
-
-                    CurrentTextEditor.Text = openFiles[currID].content ?? "";
-
-                    CurrentTextEditor.TextChanged += textEditor_TextChanged;
-                }
+                    updateWebView();
+                }), System.Windows.Threading.DispatcherPriority.Render);
             }
         }
 
-        private async void InitializeWebView()
+        private void InitializeWebView()
         {
-            await visualWebTester.EnsureCoreWebView2Async(null);
+            _ = visualWebTester.EnsureCoreWebView2Async(null);
             updateWebView();
-
-            visualWebTester.CoreWebView2.AddWebResourceRequestedFilter(
-                "file:///*",
-                Microsoft.Web.WebView2.Core.CoreWebView2WebResourceContext.All
-            ); //Filter only for local files
-
-            visualWebTester.CoreWebView2.WebResourceRequested += OnWebResourceRequested; //Intercepts web resource request
         }
         private void openMenuItem_Click(object sender, RoutedEventArgs e) //runs when open button is clicked from file
         {
@@ -221,17 +252,29 @@ namespace VWIDE
         {
             globalIDIndex--;
         }
-        private void updateWebView()
+        private async void updateWebView()
         {
-            if (visualWebTester != null && visualWebTester.CoreWebView2 != null && CurrentTextEditor != null)
+            if (visualWebTester != null && visualWebTester.CoreWebView2 != null)
             {
+                string content = "";
+                if (CurrentTextEditor != null)
+                {
+                    content = CurrentTextEditor.Text;
+                }
+                else if (currID >= 0 && currID < openFiles.Count)
+                {
+                    content = openFiles[currID].content ?? "";
+                }
+
                 if (phpEnabled)
                 {
-                    visualWebTester.CoreWebView2.Navigate("file:///vwide_preview.php");
+                    string htmlResult = await runPHP(content);
+
+                    await visualWebTester.EnsureCoreWebView2Async();
+                    visualWebTester.NavigateToString(htmlResult);
                 }
                 else
                 {
-                    string content = CurrentTextEditor.Text;
                     visualWebTester.CoreWebView2.NavigateToString(content);
                 }
             }
@@ -258,13 +301,6 @@ namespace VWIDE
                 if (childOfChild != null) return childOfChild;
             }
             return null;
-        }
-        private void OnWebResourceRequested(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebResourceRequestedEventArgs e) //event passing php code to computer ran php server
-        {
-            if(phpEnabled == true && CurrentTextEditor != null)
-            {
-                //FINISHS
-            }
         }
     }
     public class openFileObject
