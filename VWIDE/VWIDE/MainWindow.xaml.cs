@@ -1,16 +1,16 @@
 ﻿using ICSharpCode.AvalonEdit;
+using LibGit2Sharp;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Diagnostics;
-using LibGit2Sharp;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using System.Windows.Media;
 
 namespace VWIDE
 {
@@ -20,10 +20,12 @@ namespace VWIDE
     /// 
     public partial class MainWindow : Window
     {
-        bool phpEnabled = false; //line 1 in config.txt
-        bool darkMode = false; //line 2 in config.txt
-        bool projectOpen = false; //line 3 in config.txt
-        bool reporistoryEnabled = false; //line 4 in config.txt
+        settingsManager settingManager = new settingsManager();
+
+        bool phpEnabled;
+        bool darkMode;
+        bool projectOpen;
+        bool reporistoryEnabled;
 
         public static int globalIDIndex = 0;
         int currID = 0;
@@ -41,6 +43,11 @@ namespace VWIDE
             openFileObject openedFile = new openFileObject("", "", "Unamed File");
             openFiles.Add(openedFile);
             filesTabs.SelectedItem = openedFile;
+
+            phpEnabled = settingManager.getSetting(1); //line 1 in config.txt
+            darkMode = settingManager.getSetting(2); //line 2 in config.txt
+            projectOpen = settingManager.getSetting(3); //line 3 in config.txt
+            reporistoryEnabled = settingManager.getSetting(4); //line 4 in config.txt
         }
 
         public async Task<string> runPHP(string phpCode)
@@ -174,9 +181,13 @@ namespace VWIDE
             openFileDialog.InitialDirectory = "c:\\";
             if (!phpEnabled)
             {
-                openFileDialog.Filter = "html files (*.html)|*.html|All files (*.*)|*.*";
+                openFileDialog.Filter = "html files (*.html)|*.html|css files (*.css)|*.css|js files (*.js)|*.js|All files (*.*)|*.*";
             }
-            openFileDialog.FilterIndex = 2;
+            else
+            {
+                openFileDialog.Filter = "php files (*.php)|*.h|html files (*.html)|*.html|css files (*.css)|*.css|js files (*.js)|*.js|All files (*.*)|*.*";
+            }
+            openFileDialog.FilterIndex = 1;
             openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == true)
@@ -204,9 +215,16 @@ namespace VWIDE
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            saveFileDialog.Filter = "html files (*.html)|*.html|All files (*.*)|*.*";
+            if (!phpEnabled)
+            {
+                saveFileDialog.Filter = "html files (*.html)|*.html|css files (*.css)|*.css|js files (*.js)|*.js|All files (*.*)|*.*";
+            }
+            else
+            {
+                saveFileDialog.Filter = "php files (*.php)|*.h|html files (*.html)|*.html|css files (*.css)|*.css|js files (*.js)|*.js|All files (*.*)|*.*";
+            }
             saveFileDialog.RestoreDirectory = true;
-            saveFileDialog.FilterIndex = 2;
+            saveFileDialog.FilterIndex = 1;
 
             if (saveFileDialog.ShowDialog() == true)
             {
@@ -302,7 +320,40 @@ namespace VWIDE
             }
             return null;
         }
+
+        private void CloseTab_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button closeButton && closeButton.Tag is openFileObject fileToRemove)
+            {
+                e.Handled = true;
+
+                if (openFiles.Count <= 1)
+                {
+                    MessageBox.Show("Cannot close the last open file.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                bool closingSelectedTab = (filesTabs.SelectedItem == fileToRemove);
+
+                openFiles.Remove(fileToRemove);
+                MainWindow.decramentGlobalID();
+
+                filesTabs.ItemsSource = null;
+                filesTabs.ItemsSource = openFiles;
+
+                if (closingSelectedTab)
+                {
+                    currID = openFiles.Count - 1;
+                    filesTabs.SelectedIndex = currID;
+                }
+                else
+                {
+                    currID = filesTabs.SelectedIndex;
+                }
+            }
+        }
     }
+
     public class openFileObject
     {
         public string fileName { get; set; }
@@ -316,6 +367,33 @@ namespace VWIDE
             this.content = cont;
             this.fileName = fName;
             MainWindow.incramentGlobalID();
+        }
+    }
+
+    public class settingsManager
+    {
+        string settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt");
+        public settingsManager()
+        {
+
+        }
+        
+        public bool getSetting(int lineNum)
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(settingsPath);
+                return Convert.ToBoolean(lines[lineNum - 1]);
+            }
+            catch
+            {
+                MessageBox.Show("Fatal error: Config file missing");
+                return false;
+            }
+        }
+        void saveSetting(bool[] settings)
+        {
+
         }
     }
 }

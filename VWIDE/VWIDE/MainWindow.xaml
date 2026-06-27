@@ -29,7 +29,7 @@
             </MenuItem>
             <MenuItem Header="_Edit"/>
             <MenuItem Header="_View">
-                <TextBox Text="Accessibility settings go here"/>
+                <MenuItem Header="Enable/Disable Dark Mode"/>
             </MenuItem>
             <MenuItem Header="_PHP">
                 <MenuItem Header="_Enable/Disable PHP" Click="phpEnable_Click"></MenuItem>
@@ -37,8 +37,12 @@
             <MenuItem Header="_Project">
                 <MenuItem Header="_Project directory viewer"></MenuItem>
                 <MenuItem Header="_Git Reporsitory Enable/Disable"></MenuItem>
+                <MenuItem Header="_Set Default Project Directory"></MenuItem>
+                <MenuItem Header="_Set Default Git Reporsitory"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Settings">
+                <MenuItem Header="_Enable PHP by default"></MenuItem>
+                <MenuItem Header="_Set Dark mode as deafult"></MenuItem>
             </MenuItem>
         </Menu>
 
@@ -49,7 +53,20 @@
 
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding fileName}" />
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding fileName}" Margin="0,0,5,0" VerticalAlignment="Center"/>
+
+                        <Button Content="×" 
+                    Background="Transparent" 
+                    BorderThickness="0" 
+                    FontWeight="Bold"
+                    Foreground="Gray"
+                    Cursor="Hand"
+                    Padding="2,0,2,0"
+                    VerticalAlignment="Center"
+                    Click="CloseTab_Click"
+                    Tag="{Binding}"/>
+                    </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
 
