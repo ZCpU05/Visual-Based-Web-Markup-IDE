@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VWIDE"
-        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
         Title="VwIDE" Height="600" Width="900">
@@ -28,9 +28,6 @@
                 <MenuItem Header="_New" Click="newMenuItem_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Edit"/>
-            <MenuItem Header="_View">
-                <MenuItem Header="Enable/Disable Dark Mode"/>
-            </MenuItem>
             <MenuItem Header="_PHP">
                 <MenuItem Header="_Enable/Disable PHP" Click="phpEnable_Click"></MenuItem>
             </MenuItem>
@@ -40,9 +37,12 @@
                 <MenuItem Header="_Set Default Project Directory"></MenuItem>
                 <MenuItem Header="_Set Default Git Reporsitory"></MenuItem>
             </MenuItem>
+            <MenuItem Header="_Binaries"></MenuItem>
             <MenuItem Header="_Settings">
                 <MenuItem Header="_Enable PHP by default"></MenuItem>
+                <MenuItem Header="_Enable/Disable Dark Mode" Click="darkMode_Click"></MenuItem>
                 <MenuItem Header="_Set Dark mode as deafult"></MenuItem>
+                <MenuItem Header="_Set Font Size"></MenuItem>
             </MenuItem>
         </Menu>
 
@@ -84,7 +84,7 @@
 
         </TabControl>
 
-        <wv2:WebView2 x:Name="visualWebTester" Grid.Row="1" Grid.Column="1" Margin="0,5,5,1" />
+        <wv2:WebView2 x:Name="visualWebTester" Grid.Row="1" Grid.Column="1" Margin="0,5,5,1"/>
 
     </Grid>
 </Window>

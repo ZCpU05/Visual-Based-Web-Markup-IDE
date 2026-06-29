@@ -1,7 +1,8 @@
 ﻿using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Rendering;
 using LibGit2Sharp;
+using Microsoft.Web.WebView2.Wpf;
 using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -44,10 +45,17 @@ namespace VWIDE
             openFiles.Add(openedFile);
             filesTabs.SelectedItem = openedFile;
 
-            phpEnabled = settingManager.getSetting(1); //line 1 in config.txt
-            darkMode = settingManager.getSetting(2); //line 2 in config.txt
-            projectOpen = settingManager.getSetting(3); //line 3 in config.txt
-            reporistoryEnabled = settingManager.getSetting(4); //line 4 in config.txt
+            phpEnabled = !settingManager.getSetting(1); //line 1 in config.txt
+            darkMode = !settingManager.getSetting(2); //line 2 in config.txt
+            projectOpen = !settingManager.getSetting(3); //line 3 in config.txt
+            reporistoryEnabled = !settingManager.getSetting(4); //line 4 in config.txt
+
+            this.Loaded += mainWindowLoaded;
+        }
+        private void mainWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            phpEnable();
+            darkModeEnable();
         }
 
         public async Task<string> runPHP(string phpCode)
@@ -159,17 +167,46 @@ namespace VWIDE
         }
         private void phpEnable_Click(object sender, RoutedEventArgs e) //switches the php flag to enabled and adds activates the php server
         {
+            phpEnable();
+            if (phpEnabled == false)
+            {
+                MessageBox.Show("php server Disabled");
+            }
+            else
+            {
+                MessageBox.Show("php server Enabled");
+            }
+        }
+        private void phpEnable()
+        {
             if (phpEnabled == false)
             {
                 phpEnabled = true;
-                MessageBox.Show("php server enabled");
             }
             else
             {
                 phpEnabled = false;
-                MessageBox.Show("php server disabled");
             }
-
+        }
+        private void darkMode_Click(object sender, RoutedEventArgs e)
+        {
+            darkModeEnable();
+        }
+        private void darkModeEnable()
+        {
+            if (darkMode == false)
+            {
+                darkMode = true;
+                CurrentTextEditor.Background = Brushes.Black;
+                CurrentTextEditor.Foreground = Brushes.White;
+            }
+            else
+            {
+                darkMode = false;
+                CurrentTextEditor.Background = Brushes.White;
+                CurrentTextEditor.Foreground = Brushes.Black;
+            }
+            CurrentTextEditor.TextArea.TextView.Redraw();
         }
         private void getFile() // calls an open file dialogue and gets the selected file
         {
@@ -394,6 +431,14 @@ namespace VWIDE
         void saveSetting(bool[] settings)
         {
 
+        }
+        string getDefaultProjectPath()
+        {
+            return "";
+        }
+        int getFontSize()
+        {
+            return 14;
         }
     }
 }
