@@ -389,8 +389,90 @@ namespace VWIDE
                 }
             }
         }
-    }
+        void selectFolder_click(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFolderDialog
+            {
+                Title = "Select Project Folder",
+                InitialDirectory = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments)
+            };
 
+            if (fileDialog.ShowDialog() == true)
+            {
+                string selectedPath = fileDialog.FolderName;
+
+                fileDirecotryView.Items.Clear();
+
+                var rootItem = new TreeViewItem
+                {
+                    Header = Path.GetFileName(selectedPath),
+                    Tag = selectedPath,
+                    IsExpanded = true
+                };
+
+                fileDirecotryView.Items.Add(rootItem);
+
+                populateDirectory(selectedPath, rootItem);
+            }
+        }
+        void populateDirectory(string path, TreeViewItem rootItem)
+        {
+            try
+            {
+                foreach (string dir in Directory.GetDirectories(path))
+                {
+                    var dirItem = new TreeViewItem
+                    {
+                        Header = Path.GetFileName(dir),
+                        Tag = dir
+                    };
+                    rootItem.Items.Add(dirItem);
+
+                    populateDirectory(dir, dirItem);
+                }
+                foreach (string file in Directory.GetFiles(path))
+                {
+                    var fileItem = new TreeViewItem
+                    {
+                        Header = Path.GetFileName(file),
+                        Tag = file
+                    };
+                    rootItem.Items.Add(fileItem);
+                }
+            }
+            catch
+            {
+                //skips protected system folders and or any unforseen issues
+            }
+        }
+        void openFileFromDir_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (e.NewValue is TreeViewItem selectedItem)
+            {
+                string fullPath = selectedItem.Tag as string;
+
+                if (!string.IsNullOrEmpty(fullPath) && File.Exists(fullPath))
+                {
+                    try
+                    {
+                        string fileContent = File.ReadAllText(fullPath);
+                        string fileName = Path.GetFileName(fullPath);
+
+                        openFileObject openedFile = new openFileObject(fullPath, fileContent, fileName);
+                        openFiles.Add(openedFile);
+
+                        filesTabs.ItemsSource = null;
+                        filesTabs.ItemsSource = openFiles;
+                        filesTabs.SelectedItem = openedFile;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Could not open file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+    }
     public class openFileObject
     {
         public string fileName { get; set; }

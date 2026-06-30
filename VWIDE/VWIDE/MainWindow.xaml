@@ -7,8 +7,7 @@
         xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="VwIDE" Height="600" Width="900">
-
+        Title="VwIDE" Height="600" Width="1100">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,11 +15,12 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Menu Grid.Row="0" Grid.ColumnSpan="2" Background="Gray">
+        <Menu Grid.Row="0" Grid.ColumnSpan="3" Background="Gray">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Click="openMenuItem_Click"></MenuItem>
                 <MenuItem Header="_Save" Click="saveMenuItem_Click"></MenuItem>
@@ -46,7 +46,30 @@
             </MenuItem>
         </Menu>
 
-        <TabControl Grid.Row="1" Grid.Column="0" 
+        <Grid Grid.Row="1" Grid.Column="0" Margin="5,2,2,2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="selectFolder" 
+                Content="Open Project Folder..." 
+                Margin="0,0,0,5" 
+                Padding="5"
+                Click="selectFolder_click"/>
+
+                <TreeView x:Name="fileDirecotryView" Grid.Row="1" SelectedItemChanged="openFileFromDir_SelectedItemChanged">
+                </TreeView>
+            </Grid>
+        </Grid>
+
+        <TabControl Grid.Row="1" Grid.Column="1" 
                     x:Name="filesTabs"
                     Margin="2,2,2,2"
                     SelectionChanged="filesTabs_SelectionChanged">
@@ -57,15 +80,15 @@
                         <TextBlock Text="{Binding fileName}" Margin="0,0,5,0" VerticalAlignment="Center"/>
 
                         <Button Content="×" 
-                    Background="Transparent" 
-                    BorderThickness="0" 
-                    FontWeight="Bold"
-                    Foreground="Gray"
-                    Cursor="Hand"
-                    Padding="2,0,2,0"
-                    VerticalAlignment="Center"
-                    Click="CloseTab_Click"
-                    Tag="{Binding}"/>
+                                Background="Transparent" 
+                                BorderThickness="0" 
+                                FontWeight="Bold"
+                                Foreground="Gray"
+                                Cursor="Hand"
+                                Padding="2,0,2,0"
+                                VerticalAlignment="Center"
+                                Click="CloseTab_Click"
+                                Tag="{Binding}"/>
                     </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
@@ -84,7 +107,7 @@
 
         </TabControl>
 
-        <wv2:WebView2 x:Name="visualWebTester" Grid.Row="1" Grid.Column="1" Margin="0,5,5,1"/>
+        <wv2:WebView2 x:Name="visualWebTester" Grid.Row="1" Grid.Column="2" Margin="2,5,5,1"/>
 
     </Grid>
 </Window>
