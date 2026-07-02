@@ -34,15 +34,21 @@
             <MenuItem Header="_Project">
                 <MenuItem Header="_Project directory viewer"></MenuItem>
                 <MenuItem Header="_Git Reporsitory Enable/Disable"></MenuItem>
-                <MenuItem Header="_Set Default Project Directory"></MenuItem>
-                <MenuItem Header="_Set Default Git Reporsitory"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Binaries"></MenuItem>
             <MenuItem Header="_Settings">
-                <MenuItem Header="_Enable PHP by default"></MenuItem>
+                <Label>Accessibility Settings</Label>
                 <MenuItem Header="_Enable/Disable Dark Mode" Click="darkMode_Click"></MenuItem>
-                <MenuItem Header="_Set Dark mode as deafult"></MenuItem>
-                <MenuItem Header="_Set Font Size"></MenuItem>
+                <MenuItem Header="_Set Font Size">
+                    <TextBox x:Name = "fontSizeBox" Width= "50" TextChanged = "fontSizeBox_TextChanged"></TextBox>
+                </MenuItem>
+                <Label>System Settings</Label>
+                <MenuItem Header="_Enable PHP by default" Uid="0" Click="checkSetting_Click"></MenuItem>
+                <MenuItem Header="_Set Dark mode as deafult" Uid="1" Click="checkSetting_Click"></MenuItem>
+                <MenuItem Header="_Set Default Project Directory" Uid="2" Click="checkSetting_Click"></MenuItem>
+                <MenuItem Header="_Set Default Git Reporsitory" Uid="3" Click="checkSetting_Click"></MenuItem>
+                <Label x:Name= "settingsNotif">You have unsaved changes to settings</Label>
+                <MenuItem Header="_Save Settings" Click="saveSettings_Click"></MenuItem>
             </MenuItem>
         </Menu>
 

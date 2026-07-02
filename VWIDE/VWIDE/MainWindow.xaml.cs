@@ -3,16 +3,17 @@ using ICSharpCode.AvalonEdit.Rendering;
 using LibGit2Sharp;
 using Microsoft.Web.WebView2.Wpf;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Diagnostics;
 using System.Windows.Media;
-
 namespace VWIDE
 {
     /// <summary>
@@ -28,10 +29,15 @@ namespace VWIDE
         bool projectOpen;
         bool reporistoryEnabled;
 
+        int fontSize = 0;
+
         public static int globalIDIndex = 0;
         int currID = 0;
 
         List<openFileObject> openFiles = new List<openFileObject>();
+
+        List<string> settingsAsOpened = new List<string>();
+        List<string> settingsUpdated = new List<string>();
 
         public MainWindow()
         {
@@ -45,17 +51,70 @@ namespace VWIDE
             openFiles.Add(openedFile);
             filesTabs.SelectedItem = openedFile;
 
-            phpEnabled = !settingManager.getSetting(1); //line 1 in config.txt
-            darkMode = !settingManager.getSetting(2); //line 2 in config.txt
-            projectOpen = !settingManager.getSetting(3); //line 3 in config.txt
-            reporistoryEnabled = !settingManager.getSetting(4); //line 4 in config.txt
+            phpEnabled = settingManager.getSetting(1); //line 1 in config.txt
+            darkMode = settingManager.getSetting(2); //line 2 in config.txt
+            projectOpen = settingManager.getSetting(3); //line 3 in config.txt
+            reporistoryEnabled = settingManager.getSetting(4); //line 4 in config.txt
+            fontSize = settingManager.getFontSize();
+
+            settingsAsOpened.Add(Convert.ToString(phpEnabled));
+            settingsAsOpened.Add(Convert.ToString(darkMode));
+            settingsAsOpened.Add(Convert.ToString(projectOpen));
+            settingsAsOpened.Add(Convert.ToString(reporistoryEnabled));
+            settingsAsOpened.Add(Convert.ToString(fontSize));
+
+            settingsUpdated.Add(Convert.ToString(phpEnabled));
+            settingsUpdated.Add(Convert.ToString(darkMode));
+            settingsUpdated.Add(Convert.ToString(projectOpen));
+            settingsUpdated.Add(Convert.ToString(reporistoryEnabled));
+            settingsUpdated.Add(Convert.ToString(fontSize));
+
+            fontSizeBox.Text = fontSize.ToString();
 
             this.Loaded += mainWindowLoaded;
         }
+
         private void mainWindowLoaded(object sender, RoutedEventArgs e)
         {
-            phpEnable();
-            darkModeEnable();
+            if (phpEnabled)
+            {
+                darkMode = !darkMode;
+                darkModeEnable();
+            }
+            else
+            {
+                darkMode = !darkMode;
+                darkModeEnable();
+            }
+
+            if (darkMode)
+            {
+                darkMode = false;
+                darkModeEnable();
+            }
+            else
+            {
+                darkMode = true;
+                darkModeEnable();
+            }
+
+            string projPath = settingManager.getDefaultProjectPath();
+            if (projPath != null)
+            {
+                var rootItem = new TreeViewItem
+                {
+                    Header = Path.GetFileName(projPath),
+                    Tag = projPath,
+                    IsExpanded = true
+                };
+
+                fileDirecotryView.Items.Add(rootItem);
+
+                populateDirectory(projPath, rootItem);
+            }
+            CurrentTextEditor.FontSize = fontSize;
+
+            settingsNotif.Visibility = Visibility.Hidden;
         }
 
         public async Task<string> runPHP(string phpCode)
@@ -142,14 +201,17 @@ namespace VWIDE
             _ = visualWebTester.EnsureCoreWebView2Async(null);
             updateWebView();
         }
+
         private void openMenuItem_Click(object sender, RoutedEventArgs e) //runs when open button is clicked from file
         {
             getFile();
         }
+
         private void saveAsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             createNewile();
         }
+
         private void saveMenuItem_Click(object sender, RoutedEventArgs e) //runs when save button is clicked from file
         {
             if (CurrentTextEditor == null) return;
@@ -165,6 +227,7 @@ namespace VWIDE
                 System.Windows.MessageBox.Show("unforseen error file failed to save!");
             }
         }
+
         private void phpEnable_Click(object sender, RoutedEventArgs e) //switches the php flag to enabled and adds activates the php server
         {
             phpEnable();
@@ -177,6 +240,7 @@ namespace VWIDE
                 MessageBox.Show("php server Enabled");
             }
         }
+
         private void phpEnable()
         {
             if (phpEnabled == false)
@@ -188,26 +252,38 @@ namespace VWIDE
                 phpEnabled = false;
             }
         }
+
         private void darkMode_Click(object sender, RoutedEventArgs e)
         {
             darkModeEnable();
         }
+
         private void darkModeEnable()
         {
             if (darkMode == false)
             {
                 darkMode = true;
-                CurrentTextEditor.Background = Brushes.Black;
-                CurrentTextEditor.Foreground = Brushes.White;
+                if (CurrentTextEditor != null)
+                {
+                    CurrentTextEditor.Background = Brushes.Black;
+                    CurrentTextEditor.Foreground = Brushes.White;
+                }
             }
             else
             {
                 darkMode = false;
-                CurrentTextEditor.Background = Brushes.White;
-                CurrentTextEditor.Foreground = Brushes.Black;
+                if (CurrentTextEditor != null)
+                {
+                    CurrentTextEditor.Background = Brushes.White;
+                    CurrentTextEditor.Foreground = Brushes.Black;
+                }
             }
-            CurrentTextEditor.TextArea.TextView.Redraw();
+            if (CurrentTextEditor != null)
+            {
+                CurrentTextEditor.TextArea.TextView.Redraw();
+            }
         }
+
         private void getFile() // calls an open file dialogue and gets the selected file
         {
             string fileContent = string.Empty;
@@ -246,6 +322,7 @@ namespace VWIDE
                 filesTabs.SelectedItem = openedFile;
             }
         }
+
         private void createNewile()
         {
             if (CurrentTextEditor == null) return;
@@ -285,6 +362,7 @@ namespace VWIDE
                 }
             }
         }
+
         private void newFile()
         {
             openFileObject openedFile = new openFileObject(null, "", "unamed file");
@@ -295,18 +373,22 @@ namespace VWIDE
             filesTabs.SelectedItem = openedFile;
             currID = openFiles.Count - 1;
         }
+
         private void newMenuItem_Click(object sender, RoutedEventArgs e)
         {
             newFile();
         }
+
         public static void incramentGlobalID()
         {
             globalIDIndex++;
         }
+
         public static void decramentGlobalID()
         {
             globalIDIndex--;
         }
+
         private async void updateWebView()
         {
             if (visualWebTester != null && visualWebTester.CoreWebView2 != null)
@@ -334,6 +416,7 @@ namespace VWIDE
                 }
             }
         }
+
         private void textEditor_TextChanged(object sender, EventArgs e)
         {
             if (sender is TextEditor editor)
@@ -389,6 +472,7 @@ namespace VWIDE
                 }
             }
         }
+
         void selectFolder_click(object sender, RoutedEventArgs e)
         {
             var fileDialog = new OpenFolderDialog
@@ -415,6 +499,7 @@ namespace VWIDE
                 populateDirectory(selectedPath, rootItem);
             }
         }
+
         void populateDirectory(string path, TreeViewItem rootItem)
         {
             try
@@ -445,6 +530,7 @@ namespace VWIDE
                 //skips protected system folders and or any unforseen issues
             }
         }
+
         void openFileFromDir_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.NewValue is TreeViewItem selectedItem)
@@ -472,7 +558,74 @@ namespace VWIDE
                 }
             }
         }
+
+        void checkSetting_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement element)
+            {
+                int settingTarget = Convert.ToInt32(element.Uid);
+                bool settingChange = !Convert.ToBoolean(settingsUpdated[settingTarget]);
+                settingsUpdated[settingTarget] = Convert.ToString(settingChange);
+
+                if (settingTarget == 0) phpEnabled = settingChange;
+                if (settingTarget == 1) darkMode = settingChange;
+                if (settingTarget == 2) projectOpen = settingChange;
+                if (settingTarget == 3) reporistoryEnabled = settingChange;
+            }
+            settingMismatchCheck();
+        }
+
+        private void fontSizeBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Convert.ToInt32(fontSizeBox.Text);
+                settingsUpdated[4] = fontSizeBox.Text;
+            }
+            catch
+            {
+                if (settingsAsOpened.Count > 4)
+                {
+                    settingsUpdated[4] = settingsAsOpened[4];
+                    fontSizeBox.Text = settingsAsOpened[4];
+                }
+            }
+            settingMismatchCheck();
+        }
+
+        private void saveSettings_Click(object sender, RoutedEventArgs e)
+        {
+            settingsUpdated[4] = fontSizeBox.Text;
+
+            settingManager.saveSetting(settingsUpdated);
+
+            settingsAsOpened = new List<string>(settingsUpdated);
+            settingMismatchCheck();
+
+            if (int.TryParse(fontSizeBox.Text, out int newSize) && CurrentTextEditor != null)
+            {
+                CurrentTextEditor.FontSize = newSize;
+            }
+        }
+
+        void settingMismatchCheck()
+        {
+            if (!settingsUpdated.SequenceEqual(settingsAsOpened))
+            {
+                settingsNotif.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                settingsNotif.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+
     public class openFileObject
     {
         public string fileName { get; set; }
@@ -496,13 +649,21 @@ namespace VWIDE
         {
 
         }
-        
+
         public bool getSetting(int lineNum)
         {
             try
             {
+                if (!File.Exists(settingsPath)) return false;
                 string[] lines = File.ReadAllLines(settingsPath);
-                return Convert.ToBoolean(lines[lineNum - 1]);
+                if (lines.Length >= lineNum)
+                {
+                    if (bool.TryParse(lines[lineNum - 1], out bool result))
+                    {
+                        return result;
+                    }
+                }
+                return false;
             }
             catch
             {
@@ -510,17 +671,46 @@ namespace VWIDE
                 return false;
             }
         }
-        void saveSetting(bool[] settings)
-        {
 
-        }
-        string getDefaultProjectPath()
+        public void saveSetting(List<string> settings)
         {
-            return "";
+            try
+            {
+                string filePathSettings = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt");
+                string filePathFontSize = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fontSize.txt");
+
+                File.WriteAllLines(filePathSettings, settings[0..4]);
+
+                if (settings.Count > 4)
+                {
+                    File.WriteAllText(filePathFontSize, settings[4]);
+                }
+            }
+            catch
+            {
+
+            }
         }
-        int getFontSize()
+
+        public string getDefaultProjectPath(/*string pr*/)
         {
-            return 14;
+            string projectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultProjDir.txt");
+            string ProjectDir = File.ReadAllText(projectPath);
+            if (ProjectDir == "")
+            {
+                return null;
+            }
+            else
+            {
+                return ProjectDir;
+            }
+        }
+
+        public int getFontSize()
+        {
+            string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fontSize.txt");
+            string fontSize = File.ReadAllText(fontPath);
+            return Convert.ToInt32(fontSize);
         }
     }
 }
