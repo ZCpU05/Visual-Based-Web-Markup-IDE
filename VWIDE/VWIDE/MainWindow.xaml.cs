@@ -23,16 +23,21 @@ namespace VWIDE
     public partial class MainWindow : Window
     {
         settingsManager settingManager = new settingsManager();
+        credentialManager credentialManager = new credentialManager();
 
         bool phpEnabled;
         bool darkMode;
         bool projectOpen;
         bool reporistoryEnabled;
+        
+        bool githubEnabled = false;
 
         int fontSize = 0;
 
         public static int globalIDIndex = 0;
         int currID = 0;
+
+        string currentProjPath = string.Empty;
 
         List<openFileObject> openFiles = new List<openFileObject>();
 
@@ -112,9 +117,23 @@ namespace VWIDE
 
                 populateDirectory(projPath, rootItem);
             }
+
+            if (credentialManager.getCredentials() != null)
+            {
+                githubEnabled = true;
+                gitButtonManager();
+                
+                if (reporistoryEnabled)
+                {
+                    //code for default reporistory when i get around to it
+                }
+            }
+
             CurrentTextEditor.FontSize = fontSize;
 
             settingsNotif.Visibility = Visibility.Hidden;
+
+            gitButtonManager();
         }
 
         public async Task<string> runPHP(string phpCode)
@@ -484,6 +503,7 @@ namespace VWIDE
             if (fileDialog.ShowDialog() == true)
             {
                 string selectedPath = fileDialog.FolderName;
+                currentProjPath = selectedPath;
 
                 fileDirecotryView.Items.Clear();
 
@@ -571,6 +591,18 @@ namespace VWIDE
                 if (settingTarget == 1) darkMode = settingChange;
                 if (settingTarget == 2) projectOpen = settingChange;
                 if (settingTarget == 3) reporistoryEnabled = settingChange;
+
+                if(settingTarget == 2 && currentProjPath != string.Empty)
+                {
+                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultProjDir.txt");
+                    File.WriteAllText(path, currentProjPath);
+                    MessageBox.Show("Default Project Directory set too" + currentProjPath);
+                }
+                else if (settingTarget == 2 && currentProjPath == string.Empty)
+                {
+                    MessageBox.Show("Error: Please set a project directiory before setting a default");
+                    projectOpen = false;
+                }
             }
             settingMismatchCheck();
         }
@@ -619,10 +651,32 @@ namespace VWIDE
                 settingsNotif.Visibility = Visibility.Hidden;
             }
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        public void gitButtonManager()
         {
+            if (githubEnabled)
+            {
+                linkGit.Visibility = Visibility.Hidden;
+                openReporisitory.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                linkGit.Visibility = Visibility.Visible;
+                openReporisitory.Visibility = Visibility.Hidden;
+            }
+        }
 
+        private void linkGit_Click(object sender, RoutedEventArgs e)
+        {
+            Window3 window3 = new Window3();
+            window3.Owner = this;
+            window3.ShowDialog();
+        }
+
+        private void clearGitHub_Click(object sender, RoutedEventArgs e)
+        {
+            credentialManager.clearedCredentials();
+            githubEnabled = false;
+            gitButtonManager();
         }
     }
 
@@ -645,11 +699,6 @@ namespace VWIDE
     public class settingsManager
     {
         string settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt");
-        public settingsManager()
-        {
-
-        }
-
         public bool getSetting(int lineNum)
         {
             try

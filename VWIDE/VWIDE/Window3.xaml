@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VWIDE"
         mc:Ignorable="d"
-        Title="Window3" Height="450" Width="800">
-    <Grid>
-        
+        Title="Window3" Height="440" Width="378">
+    <Grid Margin="0,0,10,-6">
+        <TextBox TextWrapping="Wrap" Text="" Margin="25,69,99,317" x:Name="usernameField"/>
+        <TextBox TextWrapping="Wrap" Text="" Margin="25,114,99,272" x:Name="passwordField"/>
+        <Label Content="Link Github Account" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Username:" Margin="25,46,250,334"/>
+        <Label Content="Password:" Margin="25,93,250,287"/>
+        <Button Content="Submit" Margin="25,149,253,234" Click="submitButton_Click"/>
+        <Button Content="Cancel" Margin="179,149,99,234" Click="cancelButton_Click"/>
+
     </Grid>
 </Window>

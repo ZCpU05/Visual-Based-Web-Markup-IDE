@@ -11,6 +11,7 @@
           "AvalonEdit": "6.3.1.120",
           "LibGit2Sharp": "0.31.0",
           "LibGit2Sharp.NativeBinaries": "2.0.323",
+          "Meziantou.Framework.Win32.CredentialManager": "2.0.2",
           "Microsoft.Web.WebView2": "1.0.4022.49",
           "Microsoft.Web.WebView2.Core": "1.0.4022.49",
           "Microsoft.Web.WebView2.WinForms": "1.0.4022.49",
@@ -103,6 +104,14 @@
           }
         }
       },
+      "Meziantou.Framework.Win32.CredentialManager/2.0.2": {
+        "runtime": {
+          "lib/net9.0/Meziantou.Framework.Win32.CredentialManager.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
       "Microsoft.Web.WebView2/1.0.4022.49": {
         "runtimeTargets": {
           "runtimes/win-arm64/native/WebView2Loader.dll": {
@@ -174,6 +183,13 @@
       "sha512": "sha512-Kg+fJGWhGj5qRXG0Ilj4ddhuodGXZg57yhfX6OVUDR0M2DKg/UR42/d74+qv5l1qotc1qJilo/ho7xQnULP6yA==",
       "path": "libgit2sharp.nativebinaries/2.0.323",
       "hashPath": "libgit2sharp.nativebinaries.2.0.323.nupkg.sha512"
+    },
+    "Meziantou.Framework.Win32.CredentialManager/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Wa0ElU/7je9155Y4IWDV0HhrUm4EijrE/49OOTO+fg7MJdr+mlpUbq6ES1P6M+SIW9lLzpJCIdoGY3nUbE7ZoQ==",
+      "path": "meziantou.framework.win32.credentialmanager/2.0.2",
+      "hashPath": "meziantou.framework.win32.credentialmanager.2.0.2.nupkg.sha512"
     },
     "Microsoft.Web.WebView2/1.0.4022.49": {
       "type": "package",

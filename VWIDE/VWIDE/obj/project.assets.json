@@ -93,6 +93,19 @@
           }
         }
       },
+      "Meziantou.Framework.Win32.CredentialManager/2.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Meziantou.Framework.Win32.CredentialManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Meziantou.Framework.Win32.CredentialManager.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Web.WebView2/1.0.4022.49": {
         "type": "package",
         "build": {
@@ -182,6 +195,30 @@
         "runtimes/win-arm64/native/git2-3f4182d.dll",
         "runtimes/win-x64/native/git2-3f4182d.dll",
         "runtimes/win-x86/native/git2-3f4182d.dll"
+      ]
+    },
+    "Meziantou.Framework.Win32.CredentialManager/2.0.2": {
+      "sha512": "Wa0ElU/7je9155Y4IWDV0HhrUm4EijrE/49OOTO+fg7MJdr+mlpUbq6ES1P6M+SIW9lLzpJCIdoGY3nUbE7ZoQ==",
+      "type": "package",
+      "path": "meziantou.framework.win32.credentialmanager/2.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "_manifest/spdx_2.2/manifest.spdx.json",
+        "_manifest/spdx_2.2/manifest.spdx.json.sha256",
+        "icon.png",
+        "lib/net10.0/Meziantou.Framework.Win32.CredentialManager.dll",
+        "lib/net10.0/Meziantou.Framework.Win32.CredentialManager.xml",
+        "lib/net11.0/Meziantou.Framework.Win32.CredentialManager.dll",
+        "lib/net11.0/Meziantou.Framework.Win32.CredentialManager.xml",
+        "lib/net8.0/Meziantou.Framework.Win32.CredentialManager.dll",
+        "lib/net8.0/Meziantou.Framework.Win32.CredentialManager.xml",
+        "lib/net9.0/Meziantou.Framework.Win32.CredentialManager.dll",
+        "lib/net9.0/Meziantou.Framework.Win32.CredentialManager.xml",
+        "meziantou.framework.win32.credentialmanager.2.0.2.nupkg.sha512",
+        "meziantou.framework.win32.credentialmanager.nuspec"
       ]
     },
     "Microsoft.Web.WebView2/1.0.4022.49": {
@@ -287,6 +324,7 @@
       "AvalonEdit >= 6.3.1.120",
       "LibGit2Sharp >= 0.31.0",
       "LibGit2Sharp.NativeBinaries >= 2.0.323",
+      "Meziantou.Framework.Win32.CredentialManager >= 2.0.2",
       "Microsoft.Web.WebView2 >= 1.0.4022.49"
     ]
   },
@@ -351,6 +389,10 @@
           "LibGit2Sharp.NativeBinaries": {
             "target": "Package",
             "version": "[2.0.323, )"
+          },
+          "Meziantou.Framework.Win32.CredentialManager": {
+            "target": "Package",
+            "version": "[2.0.2, )"
           },
           "Microsoft.Web.WebView2": {
             "target": "Package",

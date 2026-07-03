@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "SghdxZhQ3TI=",
+  "dgSpecHash": "ktapQqOXVdw=",
   "success": true,
   "projectFilePath": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\VWIDE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ZCpU0\\.nuget\\packages\\avalonedit\\6.3.1.120\\avalonedit.6.3.1.120.nupkg.sha512",
     "C:\\Users\\ZCpU0\\.nuget\\packages\\libgit2sharp\\0.31.0\\libgit2sharp.0.31.0.nupkg.sha512",
     "C:\\Users\\ZCpU0\\.nuget\\packages\\libgit2sharp.nativebinaries\\2.0.323\\libgit2sharp.nativebinaries.2.0.323.nupkg.sha512",
+    "C:\\Users\\ZCpU0\\.nuget\\packages\\meziantou.framework.win32.credentialmanager\\2.0.2\\meziantou.framework.win32.credentialmanager.2.0.2.nupkg.sha512",
     "C:\\Users\\ZCpU0\\.nuget\\packages\\microsoft.web.webview2\\1.0.4022.49\\microsoft.web.webview2.1.0.4022.49.nupkg.sha512"
   ],
   "logs": []

@@ -49,6 +49,8 @@
                 <MenuItem Header="_Set Default Git Reporsitory" Uid="3" Click="checkSetting_Click"></MenuItem>
                 <Label x:Name= "settingsNotif">You have unsaved changes to settings</Label>
                 <MenuItem Header="_Save Settings" Click="saveSettings_Click"></MenuItem>
+                <Label>Account And Other Settings</Label>
+                <MenuItem Header="_Clear Github account details" Click="clearGitHub_Click"></MenuItem>
             </MenuItem>
         </Menu>
 
@@ -72,6 +74,21 @@
 
                 <TreeView x:Name="fileDirecotryView" Grid.Row="1" SelectedItemChanged="openFileFromDir_SelectedItemChanged">
                 </TreeView>
+
+
+                <Button x:Name="linkGit" 
+                Content="Link Github" 
+                Margin="1,242,0,-43" 
+                Padding="5"
+                Click="linkGit_Click" Grid.Row="1"/>
+
+                <TreeView x:Name="gitDirecotryView" Grid.Row="1" SelectedItemChanged="openFileFromDir_SelectedItemChanged" Margin="0,281,0,-281">
+                </TreeView>
+                <Button x:Name="openReporisitory" 
+                    Content="Open Reporisitory" 
+                    Margin="1,242,0,-43" 
+                    Padding="5"
+                    Click="selectFolder_click" Grid.Row="1"/>
             </Grid>
         </Grid>
 
