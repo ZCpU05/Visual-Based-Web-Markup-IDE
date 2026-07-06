@@ -88,7 +88,7 @@
                     Content="Open Reporisitory" 
                     Margin="1,242,0,-43" 
                     Padding="5"
-                    Click="selectFolder_click" Grid.Row="1"/>
+                    Click="openReporsitory_Click" Grid.Row="1"/>
             </Grid>
         </Grid>
 

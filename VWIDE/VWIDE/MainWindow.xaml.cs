@@ -1,4 +1,5 @@
 ﻿using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit.Rendering;
 using LibGit2Sharp;
 using Microsoft.Web.WebView2.Wpf;
@@ -14,6 +15,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Diagnostics;
 using System.Windows.Media;
+
 namespace VWIDE
 {
     /// <summary>
@@ -29,7 +31,7 @@ namespace VWIDE
         bool darkMode;
         bool projectOpen;
         bool reporistoryEnabled;
-        
+
         bool githubEnabled = false;
 
         int fontSize = 0;
@@ -38,6 +40,7 @@ namespace VWIDE
         int currID = 0;
 
         string currentProjPath = string.Empty;
+        string currentGitProjPath = string.Empty;
 
         List<openFileObject> openFiles = new List<openFileObject>();
 
@@ -104,7 +107,7 @@ namespace VWIDE
             }
 
             string projPath = settingManager.getDefaultProjectPath();
-            if (projPath != null)
+            if (projPath != null && Directory.Exists(projPath))
             {
                 var rootItem = new TreeViewItem
                 {
@@ -122,10 +125,26 @@ namespace VWIDE
             {
                 githubEnabled = true;
                 gitButtonManager();
-                
+
                 if (reporistoryEnabled)
                 {
-                    //code for default reporistory when i get around to it
+                    string gitPath = settingManager.getDefaultGitRepoPath();
+
+                    if (gitPath != null && Directory.Exists(gitPath))
+                    {
+                        currentGitProjPath = gitPath;
+
+                        var rootItem = new TreeViewItem
+                        {
+                            Header = Path.GetFileName(gitPath) + " [Git Repo]",
+                            Tag = gitPath,
+                            IsExpanded = true
+                        };
+
+                        gitDirecotryView.Items.Add(rootItem);
+
+                        populateDirectory(gitPath, rootItem);
+                    }
                 }
             }
 
@@ -526,6 +545,9 @@ namespace VWIDE
             {
                 foreach (string dir in Directory.GetDirectories(path))
                 {
+                    if (Path.GetFileName(dir).Equals(".git", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
                     var dirItem = new TreeViewItem
                     {
                         Header = Path.GetFileName(dir),
@@ -592,7 +614,7 @@ namespace VWIDE
                 if (settingTarget == 2) projectOpen = settingChange;
                 if (settingTarget == 3) reporistoryEnabled = settingChange;
 
-                if(settingTarget == 2 && currentProjPath != string.Empty)
+                if (settingTarget == 2 && currentProjPath != string.Empty && projectOpen == true)
                 {
                     string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultProjDir.txt");
                     File.WriteAllText(path, currentProjPath);
@@ -602,6 +624,18 @@ namespace VWIDE
                 {
                     MessageBox.Show("Error: Please set a project directiory before setting a default");
                     projectOpen = false;
+                }
+
+                if (settingTarget == 3 && currentGitProjPath != string.Empty && githubEnabled == true)
+                {
+                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultGitRepo.txt");
+                    File.WriteAllText(path, currentGitProjPath);
+                    MessageBox.Show("Default GitHub Directory set too" + currentGitProjPath);
+                }
+                else if (settingTarget == 3 && currentGitProjPath == string.Empty)
+                {
+                    MessageBox.Show("Error: Please set a github repo directiory before setting a default");
+                    reporistoryEnabled = false;
                 }
             }
             settingMismatchCheck();
@@ -665,18 +699,65 @@ namespace VWIDE
             }
         }
 
-        private void linkGit_Click(object sender, RoutedEventArgs e)
+        void linkGit_Click(object sender, RoutedEventArgs e)
         {
             Window3 window3 = new Window3();
             window3.Owner = this;
-            window3.ShowDialog();
+            if (window3.ShowDialog() == true)
+            {
+                gitButtonManager();
+            }
         }
 
-        private void clearGitHub_Click(object sender, RoutedEventArgs e)
+        void clearGitHub_Click(object sender, RoutedEventArgs e)
         {
             credentialManager.clearedCredentials();
             githubEnabled = false;
             gitButtonManager();
+            gitDirecotryView.Items.Clear();
+        }
+
+        void openReporsitory_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Select Git Repository Config File",
+                InitialDirectory = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),
+                Filter = "Git Config (config)|config|All files (*.*)|*.*",
+                FilterIndex = 0,
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedFilePath = openFileDialog.FileName;
+                string selectedFileName = Path.GetFileName(selectedFilePath);
+                string parentDirName = Path.GetFileName(Path.GetDirectoryName(selectedFilePath));
+
+                if (selectedFileName.Equals("config", StringComparison.OrdinalIgnoreCase) && parentDirName.Equals(".git", StringComparison.OrdinalIgnoreCase))
+                {
+                    string repoPath = Path.GetDirectoryName(Path.GetDirectoryName(selectedFilePath));
+
+                    gitDirecotryView.Items.Clear();
+
+                    var rootItem = new TreeViewItem
+                    {
+                        Header = Path.GetFileName(repoPath) + " [Git Repo]",
+                        Tag = repoPath,
+                        IsExpanded = true
+                    };
+
+                    gitDirecotryView.Items.Add(rootItem);
+
+                    currentGitProjPath = repoPath;
+
+                    populateDirectory(repoPath, rootItem);
+                }
+                else
+                {
+                    MessageBox.Show("Error Must select config file in hidden '.git' folder in reporsitory");
+                }
+            }
         }
     }
 
@@ -741,9 +822,10 @@ namespace VWIDE
             }
         }
 
-        public string getDefaultProjectPath(/*string pr*/)
+        public string getDefaultProjectPath()
         {
             string projectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultProjDir.txt");
+            if (!File.Exists(projectPath)) return null;
             string ProjectDir = File.ReadAllText(projectPath);
             if (ProjectDir == "")
             {
@@ -754,10 +836,24 @@ namespace VWIDE
                 return ProjectDir;
             }
         }
-
+        public string getDefaultGitRepoPath()
+        {
+            string projectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultGitRepo.txt");
+            if (!File.Exists(projectPath)) return null;
+            string ProjectDir = File.ReadAllText(projectPath);
+            if (ProjectDir == "")
+            {
+                return null;
+            }
+            else
+            {
+                return ProjectDir;
+            }
+        }
         public int getFontSize()
         {
             string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fontSize.txt");
+            if (!File.Exists(fontPath)) return 12;
             string fontSize = File.ReadAllText(fontPath);
             return Convert.ToInt32(fontSize);
         }

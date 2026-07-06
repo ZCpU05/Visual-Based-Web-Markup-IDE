@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media.TextFormatting;
 using Meziantou.Framework.Win32;
 
 
@@ -57,6 +58,7 @@ namespace VWIDE //Window for linking github
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             _isSuccessfullySaved = true;
+            this.DialogResult= false;
             this.Close();
         }
     }
