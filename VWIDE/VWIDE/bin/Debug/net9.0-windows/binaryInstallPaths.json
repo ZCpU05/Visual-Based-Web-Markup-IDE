@@ -1,0 +1,12 @@
+[
+    {
+        "name": "python",
+        "binaryLink": "https://www.python.org/ftp/python/3.13.14/python-3.13.14-embed-amd64.zip",
+        "scriptLink": "..."
+    },
+    {
+        "name": "nodeJS",
+        "binaryLink": "https://nodejs.org/dist/v24.18.0/node-v24.18.0-win-x64.zip",
+        "scriptLink": "..."
+    }
+]

@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VWIDE"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Window1" Height="440" Width="378">
     <Grid>
-        
+        <Rectangle HorizontalAlignment="Center" Height="51" Stroke="Black" VerticalAlignment="Top" Width="378" Fill="Gray"/>
+        <Rectangle HorizontalAlignment="Center" Height="51" Stroke="Black" VerticalAlignment="Top" Width="378" Fill="Gray" Margin="0,52,0,0"/>
+        <Rectangle HorizontalAlignment="Left" Height="51" Stroke="Black" VerticalAlignment="Top" Width="30" Fill="Black" Margin="46,52,0,0"/>
+        <Rectangle HorizontalAlignment="Left" Height="51" Stroke="Black" VerticalAlignment="Top" Width="30" Fill="Black" Margin="46,0,0,0"/>
+        <Rectangle HorizontalAlignment="Left" Height="51" Stroke="Black" VerticalAlignment="Top" Width="30" Fill="Black" Margin="240,52,0,0"/>
+        <Rectangle HorizontalAlignment="Left" Height="51" Stroke="Black" VerticalAlignment="Top" Width="30" Fill="Black" Margin="240,0,0,0"/>
+
+        <Label Content="Python" Margin="100,14,14,334"/>
+        <Label Content="Node.JS" Margin="100,64,14,308"/>
+
+        <Button Content="Install" Margin="286,14,14,365" Uid="0" Click="download_Click"/>
+        <Button Content="Install" Margin="286,64,14,308" Uid="1" Click="download_Click"/>
     </Grid>
 </Window>

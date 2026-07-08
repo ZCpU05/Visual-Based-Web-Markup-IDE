@@ -35,7 +35,10 @@
                 <MenuItem Header="_Project directory viewer"></MenuItem>
                 <MenuItem Header="_Git Reporsitory Enable/Disable"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Binaries"></MenuItem>
+            <MenuItem Header="_Binaries">
+                <MenuItem Header="_Install Binaries" Click="installBinaries_Click"></MenuItem>
+                <MenuItem Header="_Install Custom Binaries" Click="installCustomBinaries_Click"></MenuItem>
+            </MenuItem>
             <MenuItem Header="_Settings">
                 <Label>Accessibility Settings</Label>
                 <MenuItem Header="_Enable/Disable Dark Mode" Click="darkMode_Click"></MenuItem>

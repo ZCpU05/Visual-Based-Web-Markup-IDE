@@ -759,6 +759,17 @@ namespace VWIDE
                 }
             }
         }
+        private void installBinaries_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 window1 = new Window1();
+            window1.Owner = this;
+            window1.ShowDialog();
+        }
+
+        private void installCustomBinaries_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public class openFileObject
