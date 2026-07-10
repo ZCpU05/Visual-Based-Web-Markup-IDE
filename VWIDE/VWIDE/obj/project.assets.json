@@ -125,6 +125,16 @@
             "rid": "win-x86"
           }
         }
+      },
+      "External Langauage Manager/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/External Langauage Manager.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/External Langauage Manager.dll": {}
+        }
       }
     }
   },
@@ -317,11 +327,17 @@
         "tools/wv2winrt/zh-Hans/System.CommandLine.resources.dll",
         "tools/wv2winrt/zh-Hant/System.CommandLine.resources.dll"
       ]
+    },
+    "External Langauage Manager/1.0.0": {
+      "type": "project",
+      "path": "../External Langauage Manager/External Langauage Manager.csproj",
+      "msbuildProject": "../External Langauage Manager/External Langauage Manager.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0-windows7.0": [
       "AvalonEdit >= 6.3.1.120",
+      "External Langauage Manager >= 1.0.0",
       "LibGit2Sharp >= 0.31.0",
       "LibGit2Sharp.NativeBinaries >= 2.0.323",
       "Meziantou.Framework.Win32.CredentialManager >= 2.0.2",
@@ -359,7 +375,11 @@
       "frameworks": {
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\External Langauage Manager\\External Langauage Manager.csproj": {
+              "projectPath": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\External Langauage Manager\\External Langauage Manager.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

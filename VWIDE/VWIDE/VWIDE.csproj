@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\External Langauage Manager\External Langauage Manager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="config.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

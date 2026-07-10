@@ -106,3 +106,5 @@ C:\GitHub\VwIDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\Window3.g.cs
 C:\GitHub\VwIDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\Window1.baml
 C:\GitHub\VwIDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\Window2.baml
 C:\GitHub\VwIDE\VWIDE\VWIDE\obj\Debug\net9.0-windows\Window3.baml
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\External Langauage Manager.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\External Langauage Manager.pdb

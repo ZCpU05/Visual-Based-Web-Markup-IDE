@@ -1,0 +1,12 @@
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\bin\Debug\net9.0\External Langauage Manager.deps.json
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\bin\Debug\net9.0\External Langauage Manager.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\bin\Debug\net9.0\External Langauage Manager.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\External Langauage Manager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\External Langauage Manager.AssemblyInfoInputs.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\External Langauage Manager.AssemblyInfo.cs
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\External Langauage Manager.csproj.CoreCompileInputs.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\External Langauage Manager.sourcelink.json
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\External Langauage Manager.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\refint\External Langauage Manager.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\External Langauage Manager.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\External Langauage Manager\obj\Debug\net9.0\ref\External Langauage Manager.dll

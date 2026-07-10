@@ -131,6 +131,14 @@
           }
         }
       },
+      "External Langauage Manager/1.0.0": {
+        "runtime": {
+          "External Langauage Manager.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Microsoft.Web.WebView2.Core/1.0.4022.49": {
         "runtime": {
           "Microsoft.Web.WebView2.Core.dll": {
@@ -197,6 +205,11 @@
       "sha512": "sha512-Dwewh8bbbXoFiF2y0jT3MBEV5ZXZVA7FDbMl6DixUCCLQAoymLMxMwqibdBaY/eWCG/BBSAILUOFDIzJZ9lfNQ==",
       "path": "microsoft.web.webview2/1.0.4022.49",
       "hashPath": "microsoft.web.webview2.1.0.4022.49.nupkg.sha512"
+    },
+    "External Langauage Manager/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.Web.WebView2.Core/1.0.4022.49": {
       "type": "reference",

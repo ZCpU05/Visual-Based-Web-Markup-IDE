@@ -9,12 +9,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Diagnostics;
 using System.Windows.Media;
+using External_Langauage_Manager;
 
 namespace VWIDE
 {
@@ -80,6 +82,8 @@ namespace VWIDE
             fontSizeBox.Text = fontSize.ToString();
 
             this.Loaded += mainWindowLoaded;
+
+            loadExternalPlugins();
         }
 
         private void mainWindowLoaded(object sender, RoutedEventArgs e)
@@ -765,8 +769,34 @@ namespace VWIDE
             window1.Owner = this;
             window1.ShowDialog();
         }
+        void loadExternalPlugins()
+        {
+            string pluginsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
 
-        private void installCustomBinaries_Click(object sender, RoutedEventArgs e)
+            string[] dllFiles = Directory.GetFiles(pluginsFolder, "*.dll");
+
+            foreach (string file in dllFiles)
+            {
+                try
+                {
+                    Assembly pluginAssembly = Assembly.LoadFrom(file);
+
+                    foreach (Type type in pluginAssembly.GetTypes())
+                    {
+                        if(typeof(IPlugin).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
+                        {
+                            IPlugin plugin = (IPlugin)Activator.CreateInstance(type);
+                            plugin.OnStartup();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("I am really evil and terrible and I kill rats for fun");
+                }
+            }
+        }
+        private void installCustomBinaries_Click(object sender, RoutedEventArgs e) //come back to this event stupid
         {
 
         }
