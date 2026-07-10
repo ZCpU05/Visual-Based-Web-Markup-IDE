@@ -1,3 +1,2 @@
-2026/07/08-12:33:04.072 7a14 Reusing MANIFEST C:\GitHub\VwIDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
-2026/07/08-12:33:04.074 7a14 Recovering log #3
-2026/07/08-12:33:04.076 7a14 Reusing old log C:\GitHub\VwIDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Session Storage/000003.log 
+2026/07/10-20:55:08.301 9778 Creating DB C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Session Storage since it was missing.
+2026/07/10-20:55:08.316 9778 Reusing MANIFEST C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001

@@ -6,21 +6,22 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO.Compression;
 
 namespace VWIDE
 {
     public class downloader
     {
-        string[] languages = new string[] { "python", "nodeJS" };
-        public string chosenLanguage;
-        public int langID;
+        private readonly string[] languages = new string[] { "python", "nodeJS" };
+        public string chosenLanguage { get; private set; }
+        public int LangID { get; private set; }
 
         private static readonly HttpClient httpClient = new HttpClient();
 
         public async Task download(int id)
         {
-            langID = id;
-            chosenLanguage = languages[langID];
+            LangID = id;
+            chosenLanguage = languages[LangID];
 
             string jsonContent = await File.ReadAllTextAsync("binaryInstallPaths.json");
 
@@ -30,8 +31,7 @@ namespace VWIDE
             };
 
             List<language> allLang = JsonSerializer.Deserialize<List<language>>(jsonContent, options);
-
-            language targetLang = allLang?.FirstOrDefault(x => string.Equals(x.name, chosenLanguage, StringComparison.OrdinalIgnoreCase));
+            language targetLang = allLang?.FirstOrDefault(x => string.Equals(x.Name, chosenLanguage, StringComparison.OrdinalIgnoreCase));
 
             string downloadPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
@@ -39,16 +39,31 @@ namespace VWIDE
                 $"{chosenLanguage}.zip"
             );
 
-            byte[] fileBytes = await httpClient.GetByteArrayAsync(targetLang.binaryLink);
+            byte[] fileBytes = await httpClient.GetByteArrayAsync(targetLang.BinaryLink);
             await File.WriteAllBytesAsync(downloadPath, fileBytes);
 
-            MessageBox.Show($"Downloaded {chosenLanguage}.zip", "Success");
+            string extractEnd = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries", chosenLanguage);
+
+            if (!Directory.Exists(extractEnd))
+            {
+                Directory.CreateDirectory(extractEnd);
+            }
+
+            ZipFile.ExtractToDirectory(downloadPath, extractEnd, overwriteFiles: true);
+
+            if (File.Exists(downloadPath))
+            {
+                File.Delete(downloadPath);
+            }
+
+            MessageBox.Show($"Downloaded {chosenLanguage} Binary", "Success");
         }
     }
-        public class language
-        {
-            public string name { get; set; }
-            public string binaryLink { get; set; }
-            public string scriptLink { get; set; }
-        }
+
+    public class language
+    {
+        public string Name { get; set; }
+        public string BinaryLink { get; set; }
+        public string ScriptLink { get; set; }
+    }
 }
