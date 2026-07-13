@@ -56,7 +56,51 @@ namespace VWIDE
                 File.Delete(downloadPath);
             }
 
-            MessageBox.Show($"Downloaded {chosenLanguage} Binary", "Success");
+            if (!string.IsNullOrEmpty(targetLang.ScriptLink))
+            {
+                string dllDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
+                string fileName = Path.GetFileName(new Uri(targetLang.ScriptLink).LocalPath);
+                string filePath = Path.Combine(dllDir, fileName);
+
+                fileBytes = await httpClient.GetByteArrayAsync(targetLang.ScriptLink);
+                await File.WriteAllBytesAsync(filePath, fileBytes);
+            }
+
+            MessageBox.Show($"Downloaded {chosenLanguage} Binary, Restart application for installation to take effect", "Success, ");
+        }
+        public bool isInstalled(string searchTerm)
+        {
+            string binariesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries");
+
+            try
+            {
+                string foundFile = Directory.EnumerateFiles(binariesFolder, searchTerm, SearchOption.AllDirectories)
+                    .FirstOrDefault();
+                if (foundFile != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Fatal exception");
+                return false;
+            }
+        }
+        public void uninstall(string targetedUninstall)
+        {
+            string binaryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries", targetedUninstall);
+            string pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", targetedUninstall + " Plugin.dll");
+
+            Directory.Delete(binaryPath, true);
+            //File.Delete(pluginPath);
+            //Need to add special case for uninstalling plugins due to nature of dlls
+
+            MessageBox.Show("Uninstall Succsessful");
         }
     }
 
