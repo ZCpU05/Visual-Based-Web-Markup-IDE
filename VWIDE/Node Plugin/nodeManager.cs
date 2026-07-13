@@ -1,30 +1,63 @@
-﻿using Microsoft.Win32;
+﻿using External_Langauage_Manager;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using External_Langauage_Manager;
 
 namespace Node_Plugin
 {
     internal class nodeManager : IPlugin
     {
+        string binaryPath;
         public void OnStartup()
         {
-            string pythonFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries", "nodeJS", "node-v24.18.0-win-x64");
-            string binaryPath = Path.Combine(pythonFolder, "node.exe");
-
-            if (File.Exists(binaryPath))
+            binaryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries", "nodeJS", "node-v24.18.0-win-x64", "node.exe");
+        }
+        public string extension { get => ".js";}
+        public async Task<string> execute(string code)
+        {
+            if (!File.Exists(binaryPath))
             {
-                MessageBox.Show("Node.JS is installed");
+                MessageBox.Show("Binary not found.");
+                return null;
             }
-            else
+
+            string tempFilePath = Path.Combine(Path.GetTempPath(), "vwide_preview.js");
+            await File.WriteAllTextAsync(tempFilePath, code, Encoding.UTF8);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                MessageBox.Show("you smell and I am homophobic");
+                FileName = binaryPath,
+                Arguments = $"\"{tempFilePath}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            try
+            {
+                using (Process process = new Process { StartInfo = startInfo })
+                {
+                    process.Start();
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
+                    process.WaitForExit();
+
+                    if (File.Exists(tempFilePath)) File.Delete(tempFilePath);
+
+                    return string.IsNullOrEmpty(error) ? output : $"NodeJS Error: {error}";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Process Error: {ex.Message}";
             }
         }
     }

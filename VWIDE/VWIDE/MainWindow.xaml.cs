@@ -49,6 +49,8 @@ namespace VWIDE
         List<string> settingsAsOpened = new List<string>();
         List<string> settingsUpdated = new List<string>();
 
+        Dictionary<string, IPlugin> plugins = new Dictionary<string, IPlugin>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -445,12 +447,20 @@ namespace VWIDE
                     content = openFiles[currID].content ?? "";
                 }
 
-                if (phpEnabled)
+                string currPath = openFiles[currID].path;
+                string currExtension = Path.GetExtension(currPath);
+
+                if (currExtension == ".php" && phpEnabled)
                 {
                     string htmlResult = await runPHP(content);
-
                     await visualWebTester.EnsureCoreWebView2Async();
                     visualWebTester.NavigateToString(htmlResult);
+                }
+                else if (plugins.ContainsKey(currExtension))
+                {
+                    string consoleResult = await plugins[currExtension].execute(content);
+                    await visualWebTester.EnsureCoreWebView2Async();
+                    visualWebTester.NavigateToString(consoleResult);
                 }
                 else
                 {
@@ -787,6 +797,7 @@ namespace VWIDE
                         {
                             IPlugin plugin = (IPlugin)Activator.CreateInstance(type);
                             plugin.OnStartup();
+                            plugins.Add(plugin.extension, plugin);
                         }
                     }
                 }

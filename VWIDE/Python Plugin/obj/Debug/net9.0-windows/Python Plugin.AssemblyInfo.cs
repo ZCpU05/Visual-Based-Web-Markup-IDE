@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Python Plugin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba777d9ed86eb0c2ae069e482961455a442d17f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8300f3d3e2c8be3abca318aacda76364a7eeaafd")]
 [assembly: System.Reflection.AssemblyProductAttribute("Python Plugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Python Plugin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

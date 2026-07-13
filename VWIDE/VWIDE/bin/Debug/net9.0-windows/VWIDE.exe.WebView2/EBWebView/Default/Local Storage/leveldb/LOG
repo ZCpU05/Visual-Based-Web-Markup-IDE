@@ -1,3 +1,2 @@
-2026/07/10-22:16:12.985 9aec Reusing MANIFEST C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2026/07/10-22:16:12.991 9aec Recovering log #3
-2026/07/10-22:16:12.993 9aec Reusing old log C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000003.log 
+2026/07/13-12:34:16.603 56e8 Creating DB C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Local Storage\leveldb since it was missing.
+2026/07/13-12:34:16.623 56e8 Reusing MANIFEST C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001

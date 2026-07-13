@@ -9,5 +9,7 @@ namespace External_Langauage_Manager
     public interface IPlugin
     {
         void OnStartup();
+        string extension { get; }
+        Task<string> execute(string code);
     }
 }

@@ -1,3 +1,5 @@
-2026/07/10-22:11:07.771 8614 Reusing MANIFEST C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
-2026/07/10-22:11:07.772 8614 Recovering log #12
-2026/07/10-22:11:07.772 8614 Reusing old log C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Site Characteristics Database/000012.log 
+2026/07/13-12:34:16.554 4180 Log #12: 0 ops saved to Table #13 OK
+2026/07/13-12:34:16.557 4180 Archiving C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Site Characteristics Database/000012.log: OK
+2026/07/13-12:34:16.558 4180 Table #4: 2 entries OK
+2026/07/13-12:34:16.561 4180 Archiving C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Site Characteristics Database/MANIFEST-000001: OK
+2026/07/13-12:34:16.569 4180 **** Repaired leveldb C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\VWIDE\bin\Debug\net9.0-windows\VWIDE.exe.WebView2\EBWebView\Default\Site Characteristics Database; recovered 1 files; 179 bytes. Some data may have been lost. ****
