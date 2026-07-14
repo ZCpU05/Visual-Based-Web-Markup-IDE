@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VWIDE"
         mc:Ignorable="d"
-        Title="Window2" Height="450" Width="800">
+        Title="Window2" Height="475" Width="395">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Background="Gray">
+            <MenuItem Header="_Configure New Binary" Click="newBinary_Click"></MenuItem>
+            <MenuItem Header="_Exit" Click="exit_Click"></MenuItem>
+        </Menu>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="cBLayout" Margin="10"/>
+        </ScrollViewer>
     </Grid>
 </Window>

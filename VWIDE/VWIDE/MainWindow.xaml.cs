@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Diagnostics;
 using System.Windows.Media;
 using External_Langauage_Manager;
+using System.Diagnostics.Eventing.Reader;
 
 namespace VWIDE
 {
@@ -50,6 +51,7 @@ namespace VWIDE
         List<string> settingsUpdated = new List<string>();
 
         Dictionary<string, IPlugin> plugins = new Dictionary<string, IPlugin>();
+        List<customBinary> customBinarys = new List<customBinary>();
 
         public MainWindow()
         {
@@ -86,6 +88,7 @@ namespace VWIDE
             this.Loaded += mainWindowLoaded;
 
             loadExternalPlugins();
+            loadCustomBinaries();
         }
 
         private void mainWindowLoaded(object sender, RoutedEventArgs e)
@@ -464,6 +467,16 @@ namespace VWIDE
                 }
                 else
                 {
+                    foreach (customBinary cb in customBinarys)
+                    {
+                        if (cb.fileExtension ==  currExtension)
+                        {
+                            string consoleResult = await cb.execute(content);
+                            await visualWebTester.EnsureCoreWebView2Async();
+                            visualWebTester.NavigateToString(consoleResult);
+                            return;
+                        }
+                    }
                     visualWebTester.CoreWebView2.NavigateToString(content);
                 }
             }
@@ -809,7 +822,49 @@ namespace VWIDE
         }
         private void installCustomBinaries_Click(object sender, RoutedEventArgs e) //come back to this event stupid
         {
+            Window2 window2 = new Window2();
+            window2.Owner = this;
+            if((bool)window2.ShowDialog())
+            {
+                loadCustomBinaries();
+            }
+        }
+        void loadCustomBinaries()
+        {
+            string cPluginFolderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", "Custom Plugin");
+            string cBinariesFolderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Custom Binaries");
 
+            if (Directory.Exists(cPluginFolderPath))
+            {
+                string[] txtFiles = Directory.GetFiles(cPluginFolderPath, "*.txt");
+                foreach (string file in txtFiles)
+                {
+                    try
+                    {
+                        string langName = Path.GetFileNameWithoutExtension(file);
+
+                        string[] lines = File.ReadAllLines(file);
+                        if (lines.Length >= 2)
+                        {
+                            string exeFileName = lines[0].Trim();
+                            string extension = "." + lines[1].Trim();
+
+                            string binaryPath = Directory.GetFiles(cBinariesFolderPath, exeFileName, SearchOption.AllDirectories)
+                                .FirstOrDefault();
+
+                            if (!string.IsNullOrEmpty(binaryPath) && File.Exists(binaryPath))
+                            {
+                                customBinary cb = new customBinary(binaryPath, extension, langName);
+                                customBinarys.Add(cb);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The bee population is in termoil");
+                    }
+                }
+            }
         }
     }
 

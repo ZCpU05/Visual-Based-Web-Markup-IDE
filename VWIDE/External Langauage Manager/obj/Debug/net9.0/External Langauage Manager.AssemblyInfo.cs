@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("External Langauage Manager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8300f3d3e2c8be3abca318aacda76364a7eeaafd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+abc344b710a52d43f3d5f4d0ecb772fe1895178d")]
 [assembly: System.Reflection.AssemblyProductAttribute("External Langauage Manager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("External Langauage Manager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
