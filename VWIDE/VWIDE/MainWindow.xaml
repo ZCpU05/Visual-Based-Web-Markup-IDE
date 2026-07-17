@@ -33,7 +33,7 @@
             </MenuItem>
             <MenuItem Header="_Project">
                 <MenuItem Header="_Project directory viewer"></MenuItem>
-                <MenuItem Header="_Git Reporsitory Enable/Disable"></MenuItem>
+                <!--<MenuItem Header="_Git Reporsitory Enable/Disable"></MenuItem>-->
             </MenuItem>
             <MenuItem Header="_Binaries">
                 <MenuItem Header="_Install Binaries" Click="installBinaries_Click"></MenuItem>
@@ -49,11 +49,11 @@
                 <MenuItem Header="_Enable PHP by default" Uid="0" Click="checkSetting_Click"></MenuItem>
                 <MenuItem Header="_Set Dark mode as deafult" Uid="1" Click="checkSetting_Click"></MenuItem>
                 <MenuItem Header="_Set Default Project Directory" Uid="2" Click="checkSetting_Click"></MenuItem>
-                <MenuItem Header="_Set Default Git Reporsitory" Uid="3" Click="checkSetting_Click"></MenuItem>
+                <!-- <MenuItem Header="_Set Default Git Reporsitory" Uid="3" Click="checkSetting_Click"></MenuItem> -->
                 <Label x:Name= "settingsNotif">You have unsaved changes to settings</Label>
                 <MenuItem Header="_Save Settings" Click="saveSettings_Click"></MenuItem>
-                <Label>Account And Other Settings</Label>
-                <MenuItem Header="_Clear Github account details" Click="clearGitHub_Click"></MenuItem>
+                <!--<Label>Account And Other Settings</Label>
+                <MenuItem Header="_Clear Github account details" Click="clearGitHub_Click"></MenuItem> -->
             </MenuItem>
         </Menu>
 
@@ -63,7 +63,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -79,19 +79,19 @@
                 </TreeView>
 
 
-                <Button x:Name="linkGit" 
+                <!-- <Button x:Name="linkGit" 
                 Content="Link Github" 
                 Margin="1,242,0,-43" 
                 Padding="5"
-                Click="linkGit_Click" Grid.Row="1"/>
+                Click="linkGit_Click" Grid.Row="1"/> -->
 
-                <TreeView x:Name="gitDirecotryView" Grid.Row="1" SelectedItemChanged="openFileFromDir_SelectedItemChanged" Margin="0,281,0,-281">
-                </TreeView>
-                <Button x:Name="openReporisitory" 
+                <!-- <TreeView x:Name="gitDirecotryView" Grid.Row="1" SelectedItemChanged="openFileFromDir_SelectedItemChanged" Margin="0,281,0,-281">
+                </TreeView> -->
+                <!-- <Button x:Name="openReporisitory" 
                     Content="Open Reporisitory" 
                     Margin="1,242,0,-43" 
                     Padding="5"
-                    Click="openReporsitory_Click" Grid.Row="1"/>
+                    Click="openReporsitory_Click" Grid.Row="1"/> -->
             </Grid>
         </Grid>
 

@@ -130,7 +130,7 @@ namespace VWIDE
                 populateDirectory(projPath, rootItem);
             }
 
-            if (credentialManager.getCredentials() != null)
+            /*if (credentialManager.getCredentials() != null)
             {
                 githubEnabled = true;
                 gitButtonManager();
@@ -155,13 +155,13 @@ namespace VWIDE
                         populateDirectory(gitPath, rootItem);
                     }
                 }
-            }
+            }*/
 
             CurrentTextEditor.FontSize = fontSize;
 
             settingsNotif.Visibility = Visibility.Hidden;
 
-            gitButtonManager();
+            //gitButtonManager();
         }
 
         public async Task<string> runPHP(string phpCode)
@@ -712,7 +712,7 @@ namespace VWIDE
                 settingsNotif.Visibility = Visibility.Hidden;
             }
         }
-        public void gitButtonManager()
+        /*public void gitButtonManager()
         {
             if (githubEnabled)
             {
@@ -724,9 +724,9 @@ namespace VWIDE
                 linkGit.Visibility = Visibility.Visible;
                 openReporisitory.Visibility = Visibility.Hidden;
             }
-        }
+        }*/
 
-        void linkGit_Click(object sender, RoutedEventArgs e)
+        /*void linkGit_Click(object sender, RoutedEventArgs e)
         {
             Window3 window3 = new Window3();
             window3.Owner = this;
@@ -785,7 +785,7 @@ namespace VWIDE
                     MessageBox.Show("Error Must select config file in hidden '.git' folder in reporsitory");
                 }
             }
-        }
+        }*/
         private void installBinaries_Click(object sender, RoutedEventArgs e)
         {
             Window1 window1 = new Window1();
