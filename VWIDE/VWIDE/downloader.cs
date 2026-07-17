@@ -12,7 +12,7 @@ namespace VWIDE
 {
     public class downloader
     {
-        private readonly string[] languages = new string[] { "python", "nodeJS" };
+        private readonly string[] languages = new string[] { "Python", "Node" };
         public string chosenLanguage { get; private set; }
         public int LangID { get; private set; }
 
@@ -94,13 +94,14 @@ namespace VWIDE
         public void uninstall(string targetedUninstall)
         {
             string binaryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries", targetedUninstall);
-            string pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", targetedUninstall + " Plugin.dll");
+            string pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", targetedUninstall + ".Plugin.dll");
+
+            string uninstallPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uninstall", targetedUninstall + ".Plugin.dll");
+            File.Move(pluginPath, uninstallPath);
 
             Directory.Delete(binaryPath, true);
-            //File.Delete(pluginPath);
-            //Need to add special case for uninstalling plugins due to nature of dlls
 
-            MessageBox.Show("Uninstall Succsessful");
+            MessageBox.Show("Uninstall Succsessful, restart application to take effect");
         }
     }
 
