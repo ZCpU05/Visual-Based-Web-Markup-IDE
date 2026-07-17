@@ -60,6 +60,7 @@ namespace VWIDE
             {
                 InitializeWebView();
             }
+            clearUninstalls();
             filesTabs.ItemsSource = openFiles;
             openFileObject openedFile = new openFileObject("", "", "Unamed File");
             openFiles.Add(openedFile);
@@ -864,6 +865,15 @@ namespace VWIDE
                         MessageBox.Show("The bee population is in termoil");
                     }
                 }
+            }
+        }
+        void clearUninstalls()
+        {
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uninstall");
+            string[] files = Directory.GetFiles(filePath);
+            foreach (string file in files)
+            {
+                File.Delete(file);
             }
         }
     }

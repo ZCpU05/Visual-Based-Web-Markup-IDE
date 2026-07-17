@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\window2.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\window2.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\window2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\window2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\custombinary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\custombinary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\window2.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\window2.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|c:\\users\\zcpu0\\onedrive\\documents\\github\\visual based web markup ide\\visual based web markup ide\\vwide\\vwide\\window2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7C4F6942-0A48-496D-8C12-4FD0DF9016BD}|VWIDE\\VWIDE.csproj|solutionrelative:vwide\\window2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,56 +50,70 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Window2.xaml",
               "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window2.xaml",
               "RelativeDocumentMoniker": "VWIDE\\Window2.xaml",
               "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window2.xaml",
               "RelativeToolTip": "VWIDE\\Window2.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-07-14T13:39:11.696Z"
+              "WhenOpened": "2026-07-14T13:39:11.696Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "Window2.xaml.cs",
               "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window2.xaml.cs",
               "RelativeDocumentMoniker": "VWIDE\\Window2.xaml.cs",
-              "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window2.xaml.cs",
-              "RelativeToolTip": "VWIDE\\Window2.xaml.cs",
-              "ViewState": "AgIAAJAAAAAAAAAAAAAmwLsAAABTAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window2.xaml.cs*",
+              "RelativeToolTip": "VWIDE\\Window2.xaml.cs*",
+              "ViewState": "AgIAAEEBAAAAAAAAAAAkwGQBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T12:55:09.854Z"
+              "WhenOpened": "2026-07-14T12:55:09.854Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "customBinary.cs",
               "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\customBinary.cs",
               "RelativeDocumentMoniker": "VWIDE\\customBinary.cs",
               "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\customBinary.cs",
               "RelativeToolTip": "VWIDE\\customBinary.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAD4AAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-14T12:49:14.321Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
+              "Title": "Window1.xaml",
+              "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window1.xaml",
+              "RelativeDocumentMoniker": "VWIDE\\Window1.xaml",
+              "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window1.xaml",
+              "RelativeToolTip": "VWIDE\\Window1.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-07-17T12:00:09.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Window1.xaml.cs",
               "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window1.xaml.cs",
               "RelativeDocumentMoniker": "VWIDE\\Window1.xaml.cs",
               "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\Window1.xaml.cs",
               "RelativeToolTip": "VWIDE\\Window1.xaml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACQAAABCAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowCQAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-13T11:47:50.906Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\MainWindow.xaml",
               "RelativeDocumentMoniker": "VWIDE\\MainWindow.xaml",
@@ -107,13 +125,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "VWIDE\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\ZCpU0\\OneDrive\\Documents\\GitHub\\Visual Based Web Markup IDE\\Visual Based Web Markup IDE\\VWIDE\\VWIDE\\MainWindow.xaml.cs*",
               "RelativeToolTip": "VWIDE\\MainWindow.xaml.cs*",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAjwKcAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAADIDAAAAAAAAAAAmwD0DAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-27T13:13:24.088Z",
               "EditorCaption": ""
