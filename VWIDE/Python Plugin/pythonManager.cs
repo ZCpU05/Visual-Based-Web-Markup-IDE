@@ -60,5 +60,10 @@ namespace Node_Plugin
                 return $"Process Error: {ex.Message}";
             }
         }
+        public Dictionary<string, bool> extensionUpdater(Dictionary<string, bool> ext)
+        {
+            ext.Add(".py", true);
+            return ext;
+        }
     }
 }

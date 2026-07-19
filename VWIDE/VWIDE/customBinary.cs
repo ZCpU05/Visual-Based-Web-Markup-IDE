@@ -16,12 +16,14 @@ namespace VWIDE
         public string binaryPath;
         public string fileExtension;
         public string langName;
+        public bool isWebViewCompatible;
         
-        public customBinary(string bP, string fE, string lN)
+        public customBinary(string bP, string fE, string lN, bool iWVC)
         {
             this.binaryPath = bP;
             this.fileExtension = fE;
             this.langName = lN;
+            this.isWebViewCompatible = iWVC;
         }
         public async Task<string> execute(string code)
         {

@@ -11,5 +11,6 @@ namespace External_Langauage_Manager
         void OnStartup();
         string extension { get; }
         Task<string> execute(string code);
+        Dictionary<string, bool> extensionUpdater(Dictionary<string, bool> ext);
     }
 }

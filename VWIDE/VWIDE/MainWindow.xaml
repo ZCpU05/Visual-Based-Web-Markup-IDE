@@ -27,7 +27,14 @@
                 <MenuItem Header="_Save As" Click="saveAsMenuItem_Click"></MenuItem>
                 <MenuItem Header="_New" Click="newMenuItem_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Edit"/>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo" Click="undo_Click"></MenuItem>
+                <MenuItem Header="_Redo" Click="redo_Click"></MenuItem>
+                <MenuItem Header="_Cut" Click="cut_Click"></MenuItem>
+                <MenuItem Header="_Copy" Click="copy_Click"></MenuItem>
+                <MenuItem Header="_Paste" Click="paste_Click"></MenuItem>
+                <MenuItem Header="_Find and replace" Click="findAndReplace_Click"></MenuItem>
+            </MenuItem>
             <MenuItem Header="_PHP">
                 <MenuItem Header="_Enable/Disable PHP" Click="phpEnable_Click"></MenuItem>
             </MenuItem>

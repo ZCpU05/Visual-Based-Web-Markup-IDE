@@ -296,7 +296,7 @@ namespace VWIDE
                 }
 
                 string filePath = System.IO.Path.Combine(folderPath, fullFilename);
-                string contentToWrite = $"{selectedExe}\n{fileExtension}";
+                string contentToWrite = $"{selectedExe}\n{fileExtension}\ntrue"; //update to allow for non webview languages
                 File.WriteAllText(filePath, contentToWrite);
 
                 MessageBox.Show($"File successfully saved to {fullFilename}!");

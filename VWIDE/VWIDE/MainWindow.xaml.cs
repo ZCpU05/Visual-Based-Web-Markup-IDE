@@ -19,6 +19,19 @@ using System.Windows.Media;
 using External_Langauage_Manager;
 using System.Diagnostics.Eventing.Reader;
 
+/*
+---TO DO---
+Route Logic for colapsting web view based of file enxtensions
+implement cross file stuff (eg if a html file calls a php file it wont do nothing and will actually work properly)
+implement dynamic syntax highlighting (eg when in script tags 
+Implement Find and replace
+
+See if there are any accessibility settings that could be added
+Comment Over all code
+
+start debugging and testing the release build (This includes moving all the file stuff to app data
+*/
+
 namespace VWIDE
 {
     /// <summary>
@@ -28,7 +41,7 @@ namespace VWIDE
     public partial class MainWindow : Window
     {
         settingsManager settingManager = new settingsManager();
-        credentialManager credentialManager = new credentialManager();
+        //credentialManager credentialManager = new credentialManager();
 
         bool phpEnabled;
         bool darkMode;
@@ -52,6 +65,8 @@ namespace VWIDE
 
         Dictionary<string, IPlugin> plugins = new Dictionary<string, IPlugin>();
         List<customBinary> customBinarys = new List<customBinary>();
+
+        Dictionary<string, bool> supportedExtensions = new Dictionary<string, bool>(); //A dictionary containing all the supported file extensions and if they support the web view
 
         public MainWindow()
         {
@@ -87,6 +102,12 @@ namespace VWIDE
             fontSizeBox.Text = fontSize.ToString();
 
             this.Loaded += mainWindowLoaded;
+
+            supportedExtensions.Add(".html", true);
+            supportedExtensions.Add(".css", false);
+            supportedExtensions.Add(".js", false);
+            supportedExtensions.Add(".php", true);
+            supportedExtensions.Add(".txt", false);
 
             loadExternalPlugins();
             loadCustomBinaries();
@@ -811,6 +832,7 @@ namespace VWIDE
                         {
                             IPlugin plugin = (IPlugin)Activator.CreateInstance(type);
                             plugin.OnStartup();
+                            supportedExtensions = plugin.extensionUpdater(supportedExtensions);
                             plugins.Add(plugin.extension, plugin);
                         }
                     }
@@ -849,14 +871,16 @@ namespace VWIDE
                         {
                             string exeFileName = lines[0].Trim();
                             string extension = "." + lines[1].Trim();
+                            bool webViewCompatible = Convert.ToBoolean(lines[2].Trim());
 
                             string binaryPath = Directory.GetFiles(cBinariesFolderPath, exeFileName, SearchOption.AllDirectories)
                                 .FirstOrDefault();
 
                             if (!string.IsNullOrEmpty(binaryPath) && File.Exists(binaryPath))
                             {
-                                customBinary cb = new customBinary(binaryPath, extension, langName);
+                                customBinary cb = new customBinary(binaryPath, extension, langName, webViewCompatible);
                                 customBinarys.Add(cb);
+                                supportedExtensions.Add("." + cb.fileExtension, cb.isWebViewCompatible);
                             }
                         }
                     }
@@ -875,6 +899,31 @@ namespace VWIDE
             {
                 File.Delete(file);
             }
+        }
+
+        private void undo_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentTextEditor.Undo();
+        }
+        private void redo_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentTextEditor.Redo();
+        }
+        private void cut_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentTextEditor.Cut();
+        }
+        private void copy_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentTextEditor.Copy();
+        }
+        private void paste_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentTextEditor.Paste();
+        }
+        private void findAndReplace_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 
