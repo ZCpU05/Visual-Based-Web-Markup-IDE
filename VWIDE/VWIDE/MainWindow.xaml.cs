@@ -21,14 +21,15 @@ using System.Diagnostics.Eventing.Reader;
 
 /*
 ---TO DO---
-Route Logic for colapsting web view based of file enxtensions
 implement cross file stuff (eg if a html file calls a php file it wont do nothing and will actually work properly)
-implement dynamic syntax highlighting (eg when in script tags 
+implement dynamic syntax highlighting (eg when in script tags)
 Implement Find and replace
 
 See if there are any accessibility settings that could be added
+add logos to plugin installer
 Comment Over all code
 
+create updater
 start debugging and testing the release build (This includes moving all the file stuff to app data
 */
 
@@ -71,15 +72,18 @@ namespace VWIDE
         public MainWindow()
         {
             InitializeComponent();
+
+            openFileObject openedFile = new openFileObject("", "", "Unamed File");
+            openFiles.Add(openedFile);
+            filesTabs.SelectedItem = openedFile;
+            filesTabs.ItemsSource = openFiles;
+
             if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
                 InitializeWebView();
             }
+            
             clearUninstalls();
-            filesTabs.ItemsSource = openFiles;
-            openFileObject openedFile = new openFileObject("", "", "Unamed File");
-            openFiles.Add(openedFile);
-            filesTabs.SelectedItem = openedFile;
 
             phpEnabled = settingManager.getSetting(1); //line 1 in config.txt
             darkMode = settingManager.getSetting(2); //line 2 in config.txt
@@ -434,7 +438,7 @@ namespace VWIDE
 
         private void newFile()
         {
-            openFileObject openedFile = new openFileObject(null, "", "unamed file");
+            openFileObject openedFile = new openFileObject(null, "", "Unamed file.Html");
             openFiles.Add(openedFile);
 
             filesTabs.ItemsSource = null;
@@ -460,7 +464,22 @@ namespace VWIDE
 
         private async void updateWebView()
         {
-            if (visualWebTester != null && visualWebTester.CoreWebView2 != null)
+            visualWebTester.Visibility = Visibility.Collapsed;
+            bool executeFlag = false;
+            string extension = Path.GetExtension(openFiles[currID].path);
+            string extensionComparison;
+            foreach(var (ext, isSupported) in supportedExtensions)
+            {
+               if (extension == ext && isSupported)
+               {
+                    executeFlag = true;
+                    visualWebTester.Visibility = Visibility.Visible;
+                    break;
+               }
+            }
+
+
+            if (visualWebTester != null && visualWebTester.CoreWebView2 != null && executeFlag == true)
             {
                 string content = "";
                 if (CurrentTextEditor != null)
@@ -921,9 +940,18 @@ namespace VWIDE
         {
             CurrentTextEditor.Paste();
         }
-        private void findAndReplace_Click(object sender, RoutedEventArgs e)
+        private void refresh_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void ccaRefresh_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void findAndReplace_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

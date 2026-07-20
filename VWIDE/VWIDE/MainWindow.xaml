@@ -34,6 +34,8 @@
                 <MenuItem Header="_Copy" Click="copy_Click"></MenuItem>
                 <MenuItem Header="_Paste" Click="paste_Click"></MenuItem>
                 <MenuItem Header="_Find and replace" Click="findAndReplace_Click"></MenuItem>
+                <MenuItem Header="_Refresh" Click="refresh_Click"></MenuItem>
+                <MenuItem Header="_Clear Cache and Refresh" Click="ccaRefresh_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_PHP">
                 <MenuItem Header="_Enable/Disable PHP" Click="phpEnable_Click"></MenuItem>
