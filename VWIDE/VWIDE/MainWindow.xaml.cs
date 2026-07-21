@@ -1,7 +1,10 @@
 ﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit.Rendering;
-using LibGit2Sharp;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using ICSharpCode.AvalonEdit.Search;
+//using LibGit2Sharp;
 using Microsoft.Web.WebView2.Wpf;
 using Microsoft.Win32;
 using System;
@@ -18,18 +21,15 @@ using System.Windows.Diagnostics;
 using System.Windows.Media;
 using External_Langauage_Manager;
 using System.Diagnostics.Eventing.Reader;
+using System.Xml;
 
 /*
 ---TO DO---
-implement cross file stuff (eg if a html file calls a php file it wont do nothing and will actually work properly)
-implement dynamic syntax highlighting (eg when in script tags)
-Implement Find and replace
-
-See if there are any accessibility settings that could be added
 add logos to plugin installer
 Comment Over all code
 
 create updater
+error handling junk
 start debugging and testing the release build (This includes moving all the file stuff to app data
 */
 
@@ -188,6 +188,22 @@ namespace VWIDE
             settingsNotif.Visibility = Visibility.Hidden;
 
             //gitButtonManager();
+
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string editorRules = "VWIDE.bin.editorRules.xshd";
+            using (Stream stream = assembly.GetManifestResourceStream(editorRules))
+            {
+                if (stream == null)
+                {
+                    throw new FileNotFoundException("Critical error resource could not be opened");
+                }
+                using (System.Xml.XmlTextReader reader = new System.Xml.XmlTextReader(stream))
+                {
+                    CurrentTextEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                }
+            }
+
+            SearchPanel.Install(CurrentTextEditor);
         }
 
         public async Task<string> runPHP(string phpCode)
@@ -265,6 +281,8 @@ namespace VWIDE
                     }
 
                     updateWebView();
+                    SearchPanel.Install(CurrentTextEditor);
+                    defaultLanguage(Path.GetExtension(openFiles[currID].path));
                 }), System.Windows.Threading.DispatcherPriority.Render);
             }
         }
@@ -942,16 +960,38 @@ namespace VWIDE
         }
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
-            
+            visualWebTester.CoreWebView2.Reload();
         }
 
-        private void ccaRefresh_Click(object sender, RoutedEventArgs e)
+        private async void ccaRefresh_Click(object sender, RoutedEventArgs e)
         {
-
+            await visualWebTester.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.setCacheDisabled", "{\"cacheDisabled\": true}");
+            visualWebTester.CoreWebView2.Reload();
+            await visualWebTester.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.setCacheDisabled", "{\"cacheDisabled\": false}");
         }
         private void findAndReplace_Click(object sender, RoutedEventArgs e)
         {
+            var searchPanel = SearchPanel.Install(CurrentTextEditor);
+            searchPanel.Open();
+        }
+        void defaultLanguage(string ext)
+        {
+            switch (ext)
+            {
+                case ".html":
+                    CurrentTextEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("HTML");
+                    break;
+                case ".css":
+                    CurrentTextEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("CSS");
+                    break;
+                case ".js":
+                    CurrentTextEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("JavaScript");
+                    break;
+                case ".php":
+                    CurrentTextEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("PHP");
+                    break;
 
+            }
         }
     }
 
@@ -1030,7 +1070,7 @@ namespace VWIDE
                 return ProjectDir;
             }
         }
-        public string getDefaultGitRepoPath()
+        /*public string getDefaultGitRepoPath()
         {
             string projectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultGitRepo.txt");
             if (!File.Exists(projectPath)) return null;
@@ -1043,7 +1083,7 @@ namespace VWIDE
             {
                 return ProjectDir;
             }
-        }
+        }*/
         public int getFontSize()
         {
             string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fontSize.txt");

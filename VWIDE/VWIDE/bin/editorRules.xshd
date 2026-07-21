@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="mixedSyntax" extensions=".php" xmlns="http:icsharpcode.net">
+	<Include name="HTML"/>
+
+	<RuleSet>
+		
+		<Span ruleSet="CSS/ multiline=true">
+			<Begin>&lt;style.*&gt;</Begin>
+			<End>&lt;/style&gt;</End>
+		</Span>
+
+		<Span ruleSet="JavaScript/ multiline=true">
+			<Begin>&lt;script.*&gt;</Begin>
+			<End>&lt;/script&gt;</End>
+		</Span>
+
+		<Span ruleSet="PHP/ multiline=true">
+			<Begin>&lt;\?php</Begin>
+			<End>\?&gt;</End>
+		</Span>
+
+	</RuleSet>
+</SyntaxDefinition>
