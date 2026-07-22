@@ -93,6 +93,10 @@ namespace VWIDE
         }
         public void uninstall(string targetedUninstall)
         {
+            if(targetedUninstall == "nodeJS")
+            {
+                targetedUninstall = "Node";
+            }
             string binaryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries", targetedUninstall);
             string pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", targetedUninstall + ".Plugin.dll");
 

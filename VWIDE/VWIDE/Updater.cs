@@ -1,0 +1,166 @@
+﻿using External_Langauage_Manager;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows;
+using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
+namespace VWIDE
+{
+    public class Updater
+    {
+        string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static readonly HttpClient client = new HttpClient();
+        public void programUpdater()
+        {
+            //logic for updating the main program
+        }
+        public async Task pluginLinkUpdater()
+        {
+            try
+            {
+                string gitUrl = "https://api.github.com/repos/ZCpU05/VwIDE-External-Binary-Scripts/releases/latest";
+
+                client.DefaultRequestHeaders.UserAgent.Clear();
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("VwIDE-Updater");
+
+                string apiResponse = await client.GetStringAsync(gitUrl);
+
+                var latestRelease = JsonSerializer.Deserialize<gitHubRelease>(apiResponse);
+
+                if (latestRelease == null || string.IsNullOrEmpty(latestRelease.TagName))
+                {
+                    return;
+                }
+
+                string remoteVersionStr = latestRelease.TagName.TrimStart('v', 'V');
+                Version remoteVersion = new Version(remoteVersionStr);
+
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string jsonPath = Path.Combine(appDataPath, "VwIDE", "binaryInstallPaths.json");
+
+                if (!File.Exists(jsonPath)) return;
+
+                string jsonString = await File.ReadAllTextAsync(jsonPath);
+                var plugins = JsonSerializer.Deserialize<List<jsonStructure>>(jsonString);
+
+                bool needsUpdate = false;
+
+                if (plugins != null)
+                {
+                    foreach (var plugin in plugins)
+                    {
+                        Version localVersion = new Version(plugin.version);
+
+                        if (remoteVersion > localVersion)
+                        {
+                            plugin.scriptLink = $"https://github.com{latestRelease.TagName}/{GetPluginDllName(plugin.name)}";
+                            plugin.version = remoteVersionStr;
+
+                            needsUpdate = true;
+                        }
+                    }
+                }
+
+                if (needsUpdate)
+                {
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    string updatedJson = JsonSerializer.Serialize(plugins, options);
+                    await File.WriteAllTextAsync(jsonPath, updatedJson);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error has occurred: " + ex.Message);
+            }
+        }
+
+        public void missingFileHandler()
+        {
+            string VwIDEDataPath = Path.Combine(appDataPath, "VWIDE");
+            if (!Directory.Exists(VwIDEDataPath))
+            {
+                Directory.CreateDirectory(VwIDEDataPath);
+            }
+            if (!File.Exists(Path.Combine(VwIDEDataPath, "config.txt")))
+            {
+                string[] lines = { "False", "False", "False", "False" };
+
+                using (StreamWriter streamWriter = new StreamWriter(Path.Combine(VwIDEDataPath, "config.txt")))
+                {
+                    foreach (string line in lines)
+                    {
+                        streamWriter.WriteLine(line);
+                    }
+                }
+            }
+            if (!File.Exists(Path.Combine(VwIDEDataPath, "defaultGitRepo.txt")))
+            {
+                File.Create(Path.Combine(VwIDEDataPath, "defaultGitRepo.txt"));
+            }
+            if (!File.Exists(Path.Combine(VwIDEDataPath, "defaultProjDir.txt")))
+            {
+                File.Create(Path.Combine(VwIDEDataPath, "defaultProjDir.txt"));
+            }
+            if (!File.Exists(Path.Combine(VwIDEDataPath, "fontSize.txt")))
+            {
+
+                using (StreamWriter streamWriter = new StreamWriter(Path.Combine(VwIDEDataPath, "fontSize.txt")))
+                {
+                    streamWriter.WriteLine("12");
+                }
+            }
+            if (!File.Exists(Path.Combine(VwIDEDataPath, "binaryInstallPaths.json")))
+            {
+                var pluginStrcture = new List<jsonStructure>
+                {
+                    new jsonStructure
+                    {
+                        name = "python",
+                        binaryLink = "https://www.python.org/ftp/python/3.13.14/python-3.13.14-embed-amd64.zip",
+                        scriptLink = "dummy",
+                        version = "0.0.1"
+                    },
+                    new jsonStructure
+                    {
+                        name = "nodeJS",
+                        binaryLink = "https://nodejs.org/dist/v24.18.0/node-v24.18.0-win-x64.zip",
+                        scriptLink = "dummy",
+                        version = "0.0.1"
+                    }
+                };
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string jsonString = JsonSerializer.Serialize(pluginStrcture, options);
+                File.WriteAllText(Path.Combine(VwIDEDataPath, "binaryInstallPaths.json"), jsonString);
+            }
+        }
+        static string GetPluginDllName(string pluginName)
+        {
+            return pluginName.ToLower() switch
+            {
+                "python" => "Python.Plugin.dll",
+                "nodejs" => "Node.Plugin.dll",
+                _ => $"{pluginName}.Plugin.dll"
+            };
+        }
+    }
+    internal class jsonStructure
+    {
+        public string name { get; set; }
+        public string binaryLink { get; set; }
+        public string scriptLink { get; set; }
+        public string version { get; set; }
+    }
+    internal class gitHubRelease
+    {
+        [System.Text.Json.Serialization.JsonPropertyName("tag_name")]
+        public string TagName { get; set; }
+    }
+}

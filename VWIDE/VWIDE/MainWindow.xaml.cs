@@ -25,12 +25,12 @@ using System.Xml;
 
 /*
 ---TO DO---
-add logos to plugin installer
+cross file calling support
 Comment Over all code
 
-create updater
+create updater - file healer and plugin updater done!
 error handling junk
-start debugging and testing the release build (This includes moving all the file stuff to app data
+start debugging and testing the release build (Re-route everything through appdata files rather than internal ones)
 */
 
 namespace VWIDE
@@ -41,55 +41,61 @@ namespace VWIDE
     /// 
     public partial class MainWindow : Window
     {
-        settingsManager settingManager = new settingsManager();
+        settingsManager settingManager = new settingsManager(); //creates object to handle all settings
         //credentialManager credentialManager = new credentialManager();
 
-        bool phpEnabled;
+        bool phpEnabled; //group of settings that handle the functionality of settings in the program
         bool darkMode;
         bool projectOpen;
         bool reporistoryEnabled;
 
-        bool githubEnabled = false;
+        bool githubEnabled = false; //unused in v1.0.0
 
-        int fontSize = 0;
+        int fontSize = 0; //varrible for font size to be set to, writes it to the avlonedit to set font size.
 
-        public static int globalIDIndex = 0;
-        int currID = 0;
+        public static int globalIDIndex = 0; //Index for files, this is to handle the internal logic for tracking what file contains what.
+        int currID = 0; //The current file the user is on. 
 
-        string currentProjPath = string.Empty;
+        string currentProjPath = string.Empty; //Set to default on startup allocated later, created here to be accessed globally
         string currentGitProjPath = string.Empty;
 
-        List<openFileObject> openFiles = new List<openFileObject>();
+        List<openFileObject> openFiles = new List<openFileObject>(); //List holds all the open files as well as there information
 
-        List<string> settingsAsOpened = new List<string>();
+        List<string> settingsAsOpened = new List<string>(); //these two lists track the differences between settings on start up and settings as of run time. Used to track certain things
         List<string> settingsUpdated = new List<string>();
 
-        Dictionary<string, IPlugin> plugins = new Dictionary<string, IPlugin>();
+        Dictionary<string, IPlugin> plugins = new Dictionary<string, IPlugin>(); //Data structures that hold both offical and custom plugins respectivly
         List<customBinary> customBinarys = new List<customBinary>();
 
         Dictionary<string, bool> supportedExtensions = new Dictionary<string, bool>(); //A dictionary containing all the supported file extensions and if they support the web view
 
-        public MainWindow()
+        public MainWindow() //function that loads things on start up
         {
             InitializeComponent();
 
-            openFileObject openedFile = new openFileObject("", "", "Unamed File");
+            openFileObject openedFile = new openFileObject("", "", "Unamed File"); //creates a deafult file to operate on. 
             openFiles.Add(openedFile);
             filesTabs.SelectedItem = openedFile;
             filesTabs.ItemsSource = openFiles;
 
-            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) //Sets up the webview
             {
                 InitializeWebView();
             }
             
-            clearUninstalls();
+            clearUninstalls(); //any files in the uninstall folder such as dlls are deleted 
+
+            Updater updater = new Updater();
+            updater.missingFileHandler();
+            updater.pluginLinkUpdater();
+            updater.programUpdater();
 
             phpEnabled = settingManager.getSetting(1); //line 1 in config.txt
             darkMode = settingManager.getSetting(2); //line 2 in config.txt
             projectOpen = settingManager.getSetting(3); //line 3 in config.txt
             reporistoryEnabled = settingManager.getSetting(4); //line 4 in config.txt
             fontSize = settingManager.getFontSize();
+            //Above is the settings being initalised.
 
             settingsAsOpened.Add(Convert.ToString(phpEnabled));
             settingsAsOpened.Add(Convert.ToString(darkMode));
@@ -102,24 +108,25 @@ namespace VWIDE
             settingsUpdated.Add(Convert.ToString(projectOpen));
             settingsUpdated.Add(Convert.ToString(reporistoryEnabled));
             settingsUpdated.Add(Convert.ToString(fontSize));
+            //sets up the settings comparison arrays
 
-            fontSizeBox.Text = fontSize.ToString();
+            fontSizeBox.Text = fontSize.ToString(); //sets font size
 
-            this.Loaded += mainWindowLoaded;
-
-            supportedExtensions.Add(".html", true);
+            supportedExtensions.Add(".html", true); //allocates the different types of extensions and if they use the web view or not
             supportedExtensions.Add(".css", false);
             supportedExtensions.Add(".js", false);
             supportedExtensions.Add(".php", true);
             supportedExtensions.Add(".txt", false);
 
-            loadExternalPlugins();
+            loadExternalPlugins(); //Loads each type of plugins into memory
             loadCustomBinaries();
+
+            this.Loaded += mainWindowLoaded; //fires an event to signal when the window is fully loaded
         }
 
-        private void mainWindowLoaded(object sender, RoutedEventArgs e)
+        private void mainWindowLoaded(object sender, RoutedEventArgs e) //function that fires upon the main window fully loading, prevents errors due to certain elements not exisiting yet due to loading order. 
         {
-            if (phpEnabled)
+            if (phpEnabled) //for some reason the settings only on start up only worked if they were inversed by im going to double check that
             {
                 darkMode = !darkMode;
                 darkModeEnable();
@@ -141,8 +148,8 @@ namespace VWIDE
                 darkModeEnable();
             }
 
-            string projPath = settingManager.getDefaultProjectPath();
-            if (projPath != null && Directory.Exists(projPath))
+            string projPath = settingManager.getDefaultProjectPath(); //sets the default project path
+            if (projPath != null && Directory.Exists(projPath)) //if there is a default project path allocate it to the directory viewer, 
             {
                 var rootItem = new TreeViewItem
                 {
@@ -156,6 +163,7 @@ namespace VWIDE
                 populateDirectory(projPath, rootItem);
             }
 
+            //Not in v1.0.0
             /*if (credentialManager.getCredentials() != null)
             {
                 githubEnabled = true;
@@ -189,7 +197,7 @@ namespace VWIDE
 
             //gitButtonManager();
 
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();//loads syntax highlighting rules from embbeded XHML file
             string editorRules = "VWIDE.bin.editorRules.xshd";
             using (Stream stream = assembly.GetManifestResourceStream(editorRules))
             {
@@ -203,10 +211,10 @@ namespace VWIDE
                 }
             }
 
-            SearchPanel.Install(CurrentTextEditor);
+            SearchPanel.Install(CurrentTextEditor); //installs find and replace pannel
         }
 
-        public async Task<string> runPHP(string phpCode)
+        public async Task<string> runPHP(string phpCode) //This function runs php code 
         {
             string phpPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "php", "php.exe");
 
@@ -249,7 +257,7 @@ namespace VWIDE
             }
         }
 
-        private TextEditor CurrentTextEditor
+        private TextEditor CurrentTextEditor //creates a text editor, ties it with the openFiles list allowing its content to be created and destoryed depending on the open file
         {
             get
             {
@@ -263,7 +271,7 @@ namespace VWIDE
             }
         }
 
-        private void filesTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void filesTabs_SelectionChanged(object sender, SelectionChangedEventArgs e) //method to handle when a tab is changed on file
         {
             if (e.Source == filesTabs && filesTabs.SelectedIndex >= 0 && filesTabs.SelectedIndex < openFiles.Count)
             {
@@ -287,7 +295,7 @@ namespace VWIDE
             }
         }
 
-        private void InitializeWebView()
+        private void InitializeWebView() //Sets up the webview
         {
             _ = visualWebTester.EnsureCoreWebView2Async(null);
             updateWebView();
@@ -332,7 +340,7 @@ namespace VWIDE
             }
         }
 
-        private void phpEnable()
+        private void phpEnable() //manages phps state
         {
             if (phpEnabled == false)
             {
@@ -351,7 +359,7 @@ namespace VWIDE
 
         private void darkModeEnable()
         {
-            if (darkMode == false)
+            if (darkMode == false) //Handles enabling and disabling dark mode
             {
                 darkMode = true;
                 if (CurrentTextEditor != null)
@@ -414,7 +422,7 @@ namespace VWIDE
             }
         }
 
-        private void createNewile()
+        private void createNewile() //Save As function
         {
             if (CurrentTextEditor == null) return;
 
@@ -454,7 +462,7 @@ namespace VWIDE
             }
         }
 
-        private void newFile()
+        private void newFile() //Creates a new unanmed file
         {
             openFileObject openedFile = new openFileObject(null, "", "Unamed file.Html");
             openFiles.Add(openedFile);
@@ -470,23 +478,23 @@ namespace VWIDE
             newFile();
         }
 
-        public static void incramentGlobalID()
+        public static void incramentGlobalID() 
         {
             globalIDIndex++;
         }
-
+        //These two functions handle the file ID changing it based of open or deleted files
         public static void decramentGlobalID()
         {
             globalIDIndex--;
         }
 
-        private async void updateWebView()
+        private async void updateWebView() //Function updates the webview
         {
             visualWebTester.Visibility = Visibility.Collapsed;
             bool executeFlag = false;
             string extension = Path.GetExtension(openFiles[currID].path);
             string extensionComparison;
-            foreach(var (ext, isSupported) in supportedExtensions)
+            foreach(var (ext, isSupported) in supportedExtensions) //Checks if its a webview supported extension
             {
                if (extension == ext && isSupported)
                {
@@ -497,7 +505,7 @@ namespace VWIDE
             }
 
 
-            if (visualWebTester != null && visualWebTester.CoreWebView2 != null && executeFlag == true)
+            if (visualWebTester != null && visualWebTester.CoreWebView2 != null && executeFlag == true) //Runs the code
             {
                 string content = "";
                 if (CurrentTextEditor != null)
@@ -512,21 +520,21 @@ namespace VWIDE
                 string currPath = openFiles[currID].path;
                 string currExtension = Path.GetExtension(currPath);
 
-                if (currExtension == ".php" && phpEnabled)
+                if (currExtension == ".php" && phpEnabled) //this block runs the code as php
                 {
                     string htmlResult = await runPHP(content);
                     await visualWebTester.EnsureCoreWebView2Async();
                     visualWebTester.NavigateToString(htmlResult);
                 }
-                else if (plugins.ContainsKey(currExtension))
+                else if (plugins.ContainsKey(currExtension)) //this block runs the code based of plugins
                 {
                     string consoleResult = await plugins[currExtension].execute(content);
                     await visualWebTester.EnsureCoreWebView2Async();
                     visualWebTester.NavigateToString(consoleResult);
                 }
-                else
+                else //fallback block
                 {
-                    foreach (customBinary cb in customBinarys)
+                    foreach (customBinary cb in customBinarys) //checks if custom install binaries can run the code
                     {
                         if (cb.fileExtension ==  currExtension)
                         {
@@ -536,12 +544,12 @@ namespace VWIDE
                             return;
                         }
                     }
-                    visualWebTester.CoreWebView2.NavigateToString(content);
+                    visualWebTester.CoreWebView2.NavigateToString(content); //Raw html fallback
                 }
             }
         }
 
-        private void textEditor_TextChanged(object sender, EventArgs e)
+        private void textEditor_TextChanged(object sender, EventArgs e)//Fires to update webview when text is typed in avalonedit
         {
             if (sender is TextEditor editor)
             {
@@ -565,7 +573,7 @@ namespace VWIDE
             return null;
         }
 
-        private void CloseTab_Click(object sender, RoutedEventArgs e)
+        private void CloseTab_Click(object sender, RoutedEventArgs e) //Closes file, removes it from openFiles
         {
             if (sender is Button closeButton && closeButton.Tag is openFileObject fileToRemove)
             {
@@ -597,7 +605,7 @@ namespace VWIDE
             }
         }
 
-        void selectFolder_click(object sender, RoutedEventArgs e)
+        void selectFolder_click(object sender, RoutedEventArgs e) //Opens dialog to set project directory
         {
             var fileDialog = new OpenFolderDialog
             {
@@ -625,7 +633,7 @@ namespace VWIDE
             }
         }
 
-        void populateDirectory(string path, TreeViewItem rootItem)
+        void populateDirectory(string path, TreeViewItem rootItem) //Populates the directory
         {
             try
             {
@@ -659,7 +667,7 @@ namespace VWIDE
             }
         }
 
-        void openFileFromDir_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        void openFileFromDir_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) //Opens file from file directory
         {
             if (e.NewValue is TreeViewItem selectedItem)
             {
@@ -687,7 +695,7 @@ namespace VWIDE
             }
         }
 
-        void checkSetting_Click(object sender, RoutedEventArgs e)
+        void checkSetting_Click(object sender, RoutedEventArgs e) //checks for a setting missmatch between the two arrays
         {
             if (sender is FrameworkElement element)
             {
@@ -727,7 +735,7 @@ namespace VWIDE
             settingMismatchCheck();
         }
 
-        private void fontSizeBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void fontSizeBox_TextChanged(object sender, TextChangedEventArgs e) //Manages the font size to be saved and rejects bad inputs
         {
             try
             {
@@ -745,7 +753,7 @@ namespace VWIDE
             settingMismatchCheck();
         }
 
-        private void saveSettings_Click(object sender, RoutedEventArgs e)
+        private void saveSettings_Click(object sender, RoutedEventArgs e) //saves the settings to the config file
         {
             settingsUpdated[4] = fontSizeBox.Text;
 
@@ -760,7 +768,7 @@ namespace VWIDE
             }
         }
 
-        void settingMismatchCheck()
+        void settingMismatchCheck() //notifies the user if the settings are changed 
         {
             if (!settingsUpdated.SequenceEqual(settingsAsOpened))
             {
@@ -771,6 +779,8 @@ namespace VWIDE
                 settingsNotif.Visibility = Visibility.Hidden;
             }
         }
+
+        //not in v1.0.0
         /*public void gitButtonManager()
         {
             if (githubEnabled)
@@ -845,13 +855,13 @@ namespace VWIDE
                 }
             }
         }*/
-        private void installBinaries_Click(object sender, RoutedEventArgs e)
+        private void installBinaries_Click(object sender, RoutedEventArgs e) //takes the user into the offical binary install window
         {
             Window1 window1 = new Window1();
             window1.Owner = this;
             window1.ShowDialog();
         }
-        void loadExternalPlugins()
+        void loadExternalPlugins() //loads installed plugins into memory
         {
             string pluginsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
 
@@ -880,7 +890,7 @@ namespace VWIDE
                 }
             }
         }
-        private void installCustomBinaries_Click(object sender, RoutedEventArgs e) //come back to this event stupid
+        private void installCustomBinaries_Click(object sender, RoutedEventArgs e) //opens the window for installing and managing custom txt plugins
         {
             Window2 window2 = new Window2();
             window2.Owner = this;
@@ -889,7 +899,7 @@ namespace VWIDE
                 loadCustomBinaries();
             }
         }
-        void loadCustomBinaries()
+        void loadCustomBinaries() //loads custom plugins
         {
             string cPluginFolderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", "Custom Plugin");
             string cBinariesFolderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Custom Binaries");
@@ -928,7 +938,7 @@ namespace VWIDE
                 }
             }
         }
-        void clearUninstalls()
+        void clearUninstalls() //clears folders from the uninstall folder
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uninstall");
             string[] files = Directory.GetFiles(filePath);
@@ -938,7 +948,7 @@ namespace VWIDE
             }
         }
 
-        private void undo_Click(object sender, RoutedEventArgs e)
+        private void undo_Click(object sender, RoutedEventArgs e) //General editor function buttons 950-985
         {
             CurrentTextEditor.Undo();
         }
@@ -963,7 +973,7 @@ namespace VWIDE
             visualWebTester.CoreWebView2.Reload();
         }
 
-        private async void ccaRefresh_Click(object sender, RoutedEventArgs e)
+        private async void ccaRefresh_Click(object sender, RoutedEventArgs e) //This refreshes and clear the web browsers cache, good for stuff style
         {
             await visualWebTester.CoreWebView2.CallDevToolsProtocolMethodAsync("Network.setCacheDisabled", "{\"cacheDisabled\": true}");
             visualWebTester.CoreWebView2.Reload();
@@ -974,7 +984,7 @@ namespace VWIDE
             var searchPanel = SearchPanel.Install(CurrentTextEditor);
             searchPanel.Open();
         }
-        void defaultLanguage(string ext)
+        void defaultLanguage(string ext) //Sets default lanague for syntax highlighting
         {
             switch (ext)
             {

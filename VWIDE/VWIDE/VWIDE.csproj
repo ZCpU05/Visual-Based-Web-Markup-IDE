@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="node_logo.png" />
+    <None Remove="python_Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="bin\Debug\net9.0-windows\icon1.ico" />
   </ItemGroup>
 
@@ -29,6 +34,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\External Langauage Manager\External Langauage Manager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="node_logo.png" />
+    <Resource Include="python_Logo.png" />
   </ItemGroup>
 
   <ItemGroup>

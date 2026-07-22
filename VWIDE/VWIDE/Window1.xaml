@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Window1" Height="440" Width="378">
     <Grid>
+
+
         <Rectangle HorizontalAlignment="Center" Height="51" Stroke="Black" VerticalAlignment="Top" Width="378" Fill="Gray"/>
         <Rectangle HorizontalAlignment="Center" Height="51" Stroke="Black" VerticalAlignment="Top" Width="378" Fill="Gray" Margin="0,52,0,0"/>
         <Rectangle HorizontalAlignment="Left" Height="51" Stroke="Black" VerticalAlignment="Top" Width="30" Fill="Black" Margin="46,52,0,0"/>
@@ -21,5 +23,7 @@
         <Button Content="Install" Margin="286,64,14,308" Uid="1" Click="download_Click" x:Name="nodeJSIN"/>
         <Button Content="Uninstall" Margin="286,14,14,365" Uid="0" Click="uninstall_Click" x:Name="pythonUN"/>
         <Button Content="Uninstall" Margin="286,64,14,308" Uid="1" Click="uninstall_Click" x:Name="nodeJSUN"/>
+        <Image Margin="1,-4,321,345" Source="/python_Logo.png" RenderTransformOrigin="0.315,1.123"/>
+        <Image Margin="1,48,321,290" Source="/node_logo.png"/>
     </Grid>
 </Window>
