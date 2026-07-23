@@ -30,7 +30,6 @@ Comment Over all code
 
 create updater - file healer and plugin updater done!
 error handling junk
-start debugging and testing the release build (Re-route everything through appdata files rather than internal ones)
 */
 
 namespace VWIDE
@@ -1023,11 +1022,12 @@ namespace VWIDE
 
     public class settingsManager
     {
-        string settingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt");
+        string appVwIDE = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VwIDE");
         public bool getSetting(int lineNum)
         {
             try
             {
+                string settingsPath = Path.Combine(appVwIDE, "config.txt");
                 if (!File.Exists(settingsPath)) return false;
                 string[] lines = File.ReadAllLines(settingsPath);
                 if (lines.Length >= lineNum)
@@ -1050,8 +1050,8 @@ namespace VWIDE
         {
             try
             {
-                string filePathSettings = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt");
-                string filePathFontSize = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fontSize.txt");
+                string filePathSettings = Path.Combine(appVwIDE, "config.txt");
+                string filePathFontSize = Path.Combine(appVwIDE, "fontSize.txt");
 
                 File.WriteAllLines(filePathSettings, settings[0..4]);
 
@@ -1068,7 +1068,7 @@ namespace VWIDE
 
         public string getDefaultProjectPath()
         {
-            string projectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultProjDir.txt");
+            string projectPath = Path.Combine(appVwIDE, "defaultProjDir.txt");
             if (!File.Exists(projectPath)) return null;
             string ProjectDir = File.ReadAllText(projectPath);
             if (ProjectDir == "")
@@ -1096,7 +1096,7 @@ namespace VWIDE
         }*/
         public int getFontSize()
         {
-            string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fontSize.txt");
+            string fontPath = Path.Combine(appVwIDE, "fontSize.txt");
             if (!File.Exists(fontPath)) return 12;
             string fontSize = File.ReadAllText(fontPath);
             return Convert.ToInt32(fontSize);

@@ -12,7 +12,7 @@ namespace VWIDE
 {
     public class downloader
     {
-        private readonly string[] languages = new string[] { "Python", "Node" };
+        private readonly string[] languages = new string[] { "Python", "nodeJS" };
         public string chosenLanguage { get; private set; }
         public int LangID { get; private set; }
 
@@ -23,7 +23,7 @@ namespace VWIDE
             LangID = id;
             chosenLanguage = languages[LangID];
 
-            string jsonContent = await File.ReadAllTextAsync("binaryInstallPaths.json");
+            string jsonContent = await File.ReadAllTextAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VwIDE", "binaryInstallPaths.json"));
 
             var options = new JsonSerializerOptions
             {
@@ -93,7 +93,7 @@ namespace VWIDE
         }
         public void uninstall(string targetedUninstall)
         {
-            if(targetedUninstall == "nodeJS")
+            if (targetedUninstall == "nodeJS")
             {
                 targetedUninstall = "Node";
             }
@@ -103,6 +103,11 @@ namespace VWIDE
             string uninstallPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uninstall", targetedUninstall + ".Plugin.dll");
             File.Move(pluginPath, uninstallPath);
 
+            if (targetedUninstall == "Node")
+            {
+                targetedUninstall = "nodeJS";
+                binaryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries", targetedUninstall);
+            }
             Directory.Delete(binaryPath, true);
 
             MessageBox.Show("Uninstall Succsessful, restart application to take effect");

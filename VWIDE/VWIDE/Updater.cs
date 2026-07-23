@@ -61,7 +61,7 @@ namespace VWIDE
 
                         if (remoteVersion > localVersion)
                         {
-                            plugin.scriptLink = $"https://github.com{latestRelease.TagName}/{GetPluginDllName(plugin.name)}";
+                            plugin.scriptLink = $"https://github.com/ZCpU05/VwIDE-External-Binary-Scripts/releases/download/{latestRelease.TagName}/{GetPluginDllName(plugin.name)}";
                             plugin.version = remoteVersionStr;
 
                             needsUpdate = true;
@@ -74,6 +74,7 @@ namespace VWIDE
                     var options = new JsonSerializerOptions { WriteIndented = true };
                     string updatedJson = JsonSerializer.Serialize(plugins, options);
                     await File.WriteAllTextAsync(jsonPath, updatedJson);
+                    MessageBox.Show("New Version of Plugin Detected, If any plugins are installed, uninstall and reinstall them to update them");
                 }
             }
             catch (Exception ex)
