@@ -22,10 +22,10 @@ using System.Windows.Media;
 using External_Langauage_Manager;
 using System.Diagnostics.Eventing.Reader;
 using System.Xml;
+using System.Windows.Threading;
 
 /*
 ---TO DO---
-cross file calling support
 Comment Over all code
 
 create updater - file healer and plugin updater done!
@@ -47,6 +47,8 @@ namespace VWIDE
         bool darkMode;
         bool projectOpen;
         bool reporistoryEnabled;
+
+        DispatcherTimer dispatcherTimer;
 
         bool githubEnabled = false; //unused in v1.0.0
 
@@ -146,20 +148,22 @@ namespace VWIDE
                 darkMode = true;
                 darkModeEnable();
             }
-
-            string projPath = settingManager.getDefaultProjectPath(); //sets the default project path
-            if (projPath != null && Directory.Exists(projPath)) //if there is a default project path allocate it to the directory viewer, 
+            if (phpEnabled == true)
             {
-                var rootItem = new TreeViewItem
+                string projPath = settingManager.getDefaultProjectPath(); //sets the default project path
+                if (projPath != null && Directory.Exists(projPath)) //if there is a default project path allocate it to the directory viewer, 
                 {
-                    Header = Path.GetFileName(projPath),
-                    Tag = projPath,
-                    IsExpanded = true
-                };
+                    var rootItem = new TreeViewItem
+                    {
+                        Header = Path.GetFileName(projPath),
+                        Tag = projPath,
+                        IsExpanded = true
+                    };
 
-                fileDirecotryView.Items.Add(rootItem);
+                    fileDirecotryView.Items.Add(rootItem);
 
-                populateDirectory(projPath, rootItem);
+                    populateDirectory(projPath, rootItem);
+                }
             }
 
             //Not in v1.0.0
@@ -213,46 +217,39 @@ namespace VWIDE
             SearchPanel.Install(CurrentTextEditor); //installs find and replace pannel
         }
 
-        public async Task<string> runPHP(string phpCode) //This function runs php code 
+        private async Task<string> runPHP(string input)
         {
             string phpPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "php", "php.exe");
+            string arguments = "";
 
-            if (!File.Exists(phpPath))
+            if (File.Exists(input))
             {
-                MessageBox.Show("PHP executable not found.");
-                return null;
+                arguments = $"\"{input}\"";
+            }
+            else
+            {
+                string tempFile = Path.Combine(Path.GetTempPath(), "vwide_preview.php");
+                await File.WriteAllTextAsync(tempFile, input, Encoding.UTF8);
+                arguments = $"\"{tempFile}\"";
             }
 
-            string tempFilePath = Path.Combine(Path.GetTempPath(), "vwide_preview.php");
-            await File.WriteAllTextAsync(tempFilePath, phpCode, Encoding.UTF8);
-
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = phpPath,
-                Arguments = $"\"{tempFilePath}\"",
+                Arguments = arguments,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
 
-            try
+            using (Process process = Process.Start(psi))
             {
-                using (Process process = new Process { StartInfo = startInfo })
-                {
-                    process.Start();
-                    string output = await process.StandardOutput.ReadToEndAsync();
-                    string error = await process.StandardError.ReadToEndAsync();
-                    process.WaitForExit();
+                string output = await process.StandardOutput.ReadToEndAsync();
+                string errors = await process.StandardError.ReadToEndAsync();
+                await process.WaitForExitAsync();
 
-                    if (File.Exists(tempFilePath)) File.Delete(tempFilePath);
-
-                    return string.IsNullOrEmpty(error) ? output : $"PHP Error: {error}";
-                }
-            }
-            catch (Exception ex)
-            {
-                return $"Process Error: {ex.Message}";
+                return !string.IsNullOrEmpty(output) ? output : errors;
             }
         }
 
@@ -294,10 +291,29 @@ namespace VWIDE
             }
         }
 
-        private void InitializeWebView() //Sets up the webview
+        private async void InitializeWebView() //Sets up the webview
         {
-            _ = visualWebTester.EnsureCoreWebView2Async(null);
-            updateWebView();
+            //_ = visualWebTester.EnsureCoreWebView2Async(null); old
+            //updateWebView();
+
+            await visualWebTester.EnsureCoreWebView2Async();
+
+            string previewFolder = Path.Combine(Path.GetTempPath(), "VwIDE");
+            Directory.CreateDirectory(previewFolder);
+
+            visualWebTester.CoreWebView2.SetVirtualHostNameToFolderMapping(
+                "vwide.local",
+                previewFolder,
+                Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow
+            );
+
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(300);
+            dispatcherTimer.Tick += (s, args) =>
+            {
+                dispatcherTimer.Stop();
+                updateWebView();
+            };
         }
 
         private void openMenuItem_Click(object sender, RoutedEventArgs e) //runs when open button is clicked from file
@@ -487,68 +503,89 @@ namespace VWIDE
             globalIDIndex--;
         }
 
-        private async void updateWebView() //Function updates the webview
+        private async void updateWebView()
         {
             visualWebTester.Visibility = Visibility.Collapsed;
             bool executeFlag = false;
-            string extension = Path.GetExtension(openFiles[currID].path);
-            string extensionComparison;
-            foreach(var (ext, isSupported) in supportedExtensions) //Checks if its a webview supported extension
+            string activeFilePath = openFiles[currID].path;
+            string extension = Path.GetExtension(activeFilePath);
+
+            foreach (var (ext, isSupported) in supportedExtensions)
             {
-               if (extension == ext && isSupported)
-               {
+                if (extension == ext && isSupported)
+                {
                     executeFlag = true;
                     visualWebTester.Visibility = Visibility.Visible;
                     break;
-               }
+                }
             }
 
-
-            if (visualWebTester != null && visualWebTester.CoreWebView2 != null && executeFlag == true) //Runs the code
+            if (visualWebTester != null && visualWebTester.CoreWebView2 != null && executeFlag)
             {
-                string content = "";
-                if (CurrentTextEditor != null)
-                {
-                    content = CurrentTextEditor.Text;
-                }
-                else if (currID >= 0 && currID < openFiles.Count)
-                {
-                    content = openFiles[currID].content ?? "";
-                }
+                string content = CurrentTextEditor != null ? CurrentTextEditor.Text : (openFiles[currID].content ?? "");
 
-                string currPath = openFiles[currID].path;
-                string currExtension = Path.GetExtension(currPath);
-
-                if (currExtension == ".php" && phpEnabled) //this block runs the code as php
+                if (string.IsNullOrEmpty(currentProjPath) || !Directory.Exists(currentProjPath) || string.IsNullOrEmpty(activeFilePath) || !activeFilePath.StartsWith(currentProjPath))
                 {
-                    string htmlResult = await runPHP(content);
-                    await visualWebTester.EnsureCoreWebView2Async();
-                    visualWebTester.NavigateToString(htmlResult);
-                }
-                else if (plugins.ContainsKey(currExtension)) //this block runs the code based of plugins
-                {
-                    string consoleResult = await plugins[currExtension].execute(content);
-                    await visualWebTester.EnsureCoreWebView2Async();
-                    visualWebTester.NavigateToString(consoleResult);
-                }
-                else //fallback block
-                {
-                    foreach (customBinary cb in customBinarys) //checks if custom install binaries can run the code
+                    if (extension == ".php" && phpEnabled)
                     {
-                        if (cb.fileExtension ==  currExtension)
-                        {
-                            string consoleResult = await cb.execute(content);
-                            await visualWebTester.EnsureCoreWebView2Async();
-                            visualWebTester.NavigateToString(consoleResult);
-                            return;
-                        }
+                        string htmlResult = await runPHP(content);
+                        visualWebTester.NavigateToString(htmlResult);
                     }
-                    visualWebTester.CoreWebView2.NavigateToString(content); //Raw html fallback
+                    else if (plugins.ContainsKey(extension))
+                    {
+                        string consoleResult = await plugins[extension].execute(content);
+                        visualWebTester.NavigateToString(consoleResult);
+                    }
+                    else
+                    {
+                        visualWebTester.CoreWebView2.NavigateToString(content);
+                    }
+                }
+                else
+                {
+                    string previewFolder = Path.Combine(Path.GetTempPath(), "VwIDE");
+                    string relativeFileName = Path.GetRelativePath(currentProjPath, activeFilePath);
+                    string targetFilePath = Path.Combine(previewFolder, relativeFileName);
+
+                    string targetDir = Path.GetDirectoryName(targetFilePath);
+                    if (!string.IsNullOrEmpty(targetDir) && !Directory.Exists(targetDir))
+                    {
+                        Directory.CreateDirectory(targetDir);
+                    }
+
+                    string fileExtension = Path.GetExtension(activeFilePath).ToLower();
+
+                    if (fileExtension == ".php" || fileExtension == ".html")
+                    {
+                        if (!string.IsNullOrEmpty(targetFilePath))
+                        {
+                            await File.WriteAllTextAsync(targetFilePath, content, Encoding.UTF8);
+                        }
+
+                        string htmlResult = await runPHP(targetFilePath);
+
+                        visualWebTester.CoreWebView2.NavigateToString(htmlResult);
+                    }
+                    else if (plugins.ContainsKey(extension))
+                    {
+                        string consoleResult = await plugins[extension].execute(content);
+                        visualWebTester.NavigateToString(consoleResult);
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(targetFilePath))
+                        {
+                            await File.WriteAllTextAsync(targetFilePath, content, Encoding.UTF8);
+                        }
+
+                        string virtualUri = $"http://vwide.local/{relativeFileName.Replace("\\", "/")}";
+                        visualWebTester.CoreWebView2.Navigate(virtualUri);
+                    }
                 }
             }
         }
 
-        private void textEditor_TextChanged(object sender, EventArgs e)//Fires to update webview when text is typed in avalonedit
+        private void textEditor_TextChanged(object sender, EventArgs e)
         {
             if (sender is TextEditor editor)
             {
@@ -557,7 +594,9 @@ namespace VWIDE
                     openFiles[currID].content = editor.Text;
                 }
             }
-            updateWebView();
+
+            dispatcherTimer.Stop();
+            dispatcherTimer.Start();
         }
 
         private static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
@@ -606,6 +645,11 @@ namespace VWIDE
 
         void selectFolder_click(object sender, RoutedEventArgs e) //Opens dialog to set project directory
         {
+            if(phpEnabled == false)
+            {
+                MessageBox.Show("Directory Viewer can only be used if php is enabled!");
+                return;
+            }
             var fileDialog = new OpenFolderDialog
             {
                 Title = "Select Project Folder",
@@ -629,110 +673,122 @@ namespace VWIDE
                 fileDirecotryView.Items.Add(rootItem);
 
                 populateDirectory(selectedPath, rootItem);
+
+                string previewFolder = Path.Combine(Path.GetTempPath(), "VwIDE");
+                if (File.Exists(previewFolder))
+                {
+                    Directory.Delete(previewFolder, true);
+                }
+                Directory.CreateDirectory(previewFolder);
+
+                if (!string.IsNullOrEmpty(selectedPath) && Directory.Exists(selectedPath))
+                {
+                    copyDirectory(selectedPath, previewFolder);
+                }
             }
         }
 
-        void populateDirectory(string path, TreeViewItem rootItem) //Populates the directory
-        {
-            try
+            void populateDirectory(string path, TreeViewItem rootItem) //Populates the directory
             {
-                foreach (string dir in Directory.GetDirectories(path))
+                try
                 {
-                    if (Path.GetFileName(dir).Equals(".git", StringComparison.OrdinalIgnoreCase))
-                        continue;
-
-                    var dirItem = new TreeViewItem
+                    foreach (string dir in Directory.GetDirectories(path))
                     {
-                        Header = Path.GetFileName(dir),
-                        Tag = dir
-                    };
-                    rootItem.Items.Add(dirItem);
+                        if (Path.GetFileName(dir).Equals(".git", StringComparison.OrdinalIgnoreCase))
+                            continue;
 
-                    populateDirectory(dir, dirItem);
-                }
-                foreach (string file in Directory.GetFiles(path))
-                {
-                    var fileItem = new TreeViewItem
-                    {
-                        Header = Path.GetFileName(file),
-                        Tag = file
-                    };
-                    rootItem.Items.Add(fileItem);
-                }
-            }
-            catch
-            {
-                //skips protected system folders and or any unforseen issues
-            }
-        }
+                        var dirItem = new TreeViewItem
+                        {
+                            Header = Path.GetFileName(dir),
+                            Tag = dir
+                        };
+                        rootItem.Items.Add(dirItem);
 
-        void openFileFromDir_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) //Opens file from file directory
-        {
-            if (e.NewValue is TreeViewItem selectedItem)
-            {
-                string fullPath = selectedItem.Tag as string;
-
-                if (!string.IsNullOrEmpty(fullPath) && File.Exists(fullPath))
-                {
-                    try
-                    {
-                        string fileContent = File.ReadAllText(fullPath);
-                        string fileName = Path.GetFileName(fullPath);
-
-                        openFileObject openedFile = new openFileObject(fullPath, fileContent, fileName);
-                        openFiles.Add(openedFile);
-
-                        filesTabs.ItemsSource = null;
-                        filesTabs.ItemsSource = openFiles;
-                        filesTabs.SelectedItem = openedFile;
+                        populateDirectory(dir, dirItem);
                     }
-                    catch (Exception ex)
+                    foreach (string file in Directory.GetFiles(path))
                     {
-                        MessageBox.Show($"Could not open file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        var fileItem = new TreeViewItem
+                        {
+                            Header = Path.GetFileName(file),
+                            Tag = file
+                        };
+                        rootItem.Items.Add(fileItem);
                     }
                 }
+                catch
+                {
+                    //skips protected system folders and or any unforseen issues
+                }
             }
-        }
 
-        void checkSetting_Click(object sender, RoutedEventArgs e) //checks for a setting missmatch between the two arrays
-        {
-            if (sender is FrameworkElement element)
+            void openFileFromDir_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) //Opens file from file directory
             {
-                int settingTarget = Convert.ToInt32(element.Uid);
-                bool settingChange = !Convert.ToBoolean(settingsUpdated[settingTarget]);
-                settingsUpdated[settingTarget] = Convert.ToString(settingChange);
+                if (e.NewValue is TreeViewItem selectedItem)
+                {
+                    string fullPath = selectedItem.Tag as string;
 
-                if (settingTarget == 0) phpEnabled = settingChange;
-                if (settingTarget == 1) darkMode = settingChange;
-                if (settingTarget == 2) projectOpen = settingChange;
-                if (settingTarget == 3) reporistoryEnabled = settingChange;
+                    if (!string.IsNullOrEmpty(fullPath) && File.Exists(fullPath))
+                    {
+                        try
+                        {
+                            string fileContent = File.ReadAllText(fullPath);
+                            string fileName = Path.GetFileName(fullPath);
 
-                if (settingTarget == 2 && currentProjPath != string.Empty && projectOpen == true)
-                {
-                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultProjDir.txt");
-                    File.WriteAllText(path, currentProjPath);
-                    MessageBox.Show("Default Project Directory set too" + currentProjPath);
-                }
-                else if (settingTarget == 2 && currentProjPath == string.Empty)
-                {
-                    MessageBox.Show("Error: Please set a project directiory before setting a default");
-                    projectOpen = false;
-                }
+                            openFileObject openedFile = new openFileObject(fullPath, fileContent, fileName);
+                            openFiles.Add(openedFile);
 
-                if (settingTarget == 3 && currentGitProjPath != string.Empty && githubEnabled == true)
-                {
-                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultGitRepo.txt");
-                    File.WriteAllText(path, currentGitProjPath);
-                    MessageBox.Show("Default GitHub Directory set too" + currentGitProjPath);
-                }
-                else if (settingTarget == 3 && currentGitProjPath == string.Empty)
-                {
-                    MessageBox.Show("Error: Please set a github repo directiory before setting a default");
-                    reporistoryEnabled = false;
+                            filesTabs.ItemsSource = null;
+                            filesTabs.ItemsSource = openFiles;
+                            filesTabs.SelectedItem = openedFile;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Could not open file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
                 }
             }
-            settingMismatchCheck();
-        }
+
+            void checkSetting_Click(object sender, RoutedEventArgs e) //checks for a setting missmatch between the two arrays
+            {
+                if (sender is FrameworkElement element)
+                {
+                    int settingTarget = Convert.ToInt32(element.Uid);
+                    bool settingChange = !Convert.ToBoolean(settingsUpdated[settingTarget]);
+                    settingsUpdated[settingTarget] = Convert.ToString(settingChange);
+
+                    if (settingTarget == 0) phpEnabled = settingChange;
+                    if (settingTarget == 1) darkMode = settingChange;
+                    if (settingTarget == 2) projectOpen = settingChange;
+                    if (settingTarget == 3) reporistoryEnabled = settingChange;
+
+                    if (settingTarget == 2 && currentProjPath != string.Empty && projectOpen == true)
+                    {
+                        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultProjDir.txt");
+                        File.WriteAllText(path, currentProjPath);
+                        MessageBox.Show("Default Project Directory set too" + currentProjPath);
+                    }
+                    else if (settingTarget == 2 && currentProjPath == string.Empty)
+                    {
+                        MessageBox.Show("Error: Please set a project directiory before setting a default");
+                        projectOpen = false;
+                    }
+
+                    if (settingTarget == 3 && currentGitProjPath != string.Empty && githubEnabled == true)
+                    {
+                        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultGitRepo.txt");
+                        File.WriteAllText(path, currentGitProjPath);
+                        MessageBox.Show("Default GitHub Directory set too" + currentGitProjPath);
+                    }
+                    else if (settingTarget == 3 && currentGitProjPath == string.Empty)
+                    {
+                        MessageBox.Show("Error: Please set a github repo directiory before setting a default");
+                        reporistoryEnabled = false;
+                    }
+                }
+                settingMismatchCheck();
+            }
 
         private void fontSizeBox_TextChanged(object sender, TextChangedEventArgs e) //Manages the font size to be saved and rejects bad inputs
         {
@@ -1001,6 +1057,23 @@ namespace VWIDE
                     break;
 
             }
+        }
+        private void copyDirectory(string sourceDir, string destinationDir)
+        {
+            foreach (var dir in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(dir.Replace(sourceDir, destinationDir));
+            }
+            foreach (var file in Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories))
+            {
+                File.Copy(file, file.Replace(sourceDir, destinationDir), true);
+            }
+        }
+
+        private void clearProject_Click(object sender, RoutedEventArgs e)
+        {
+            fileDirecotryView.Items.Clear();
+            projectOpen = false;
         }
     }
 
