@@ -28,8 +28,6 @@ using AutoUpdaterDotNET;
 /*
 ---TO DO---
 Comment Over all code
-
-create updater - file healer and plugin updater done!
 error handling junk
 */
 
@@ -76,7 +74,7 @@ namespace VWIDE
             InitializeComponent();
 
             AutoUpdater.RunUpdateAsAdmin = false;
-            AutoUpdater.Start("https://raw.githubusercontent.com/ZCpU05/Visual-Based-Web-Markup-IDE/main/version.xml");
+            AutoUpdater.Start("https://raw.githubusercontent.com/ZCpU05/Visual-Based-Web-Markup-IDE/Branch-for-testing-updater/version.xml");
 
             openFileObject openedFile = new openFileObject("", "", "Unamed File"); //creates a deafult file to operate on. 
             openFiles.Add(openedFile);
