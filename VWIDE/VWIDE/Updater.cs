@@ -18,10 +18,6 @@ namespace VWIDE
     {
         string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly HttpClient client = new HttpClient();
-        public void programUpdater()
-        {
-            //logic for updating the main program
-        }
         public async Task pluginLinkUpdater()
         {
             try

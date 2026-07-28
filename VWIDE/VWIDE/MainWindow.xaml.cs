@@ -23,6 +23,7 @@ using External_Langauage_Manager;
 using System.Diagnostics.Eventing.Reader;
 using System.Xml;
 using System.Windows.Threading;
+using AutoUpdaterDotNET;
 
 /*
 ---TO DO---
@@ -74,6 +75,9 @@ namespace VWIDE
         {
             InitializeComponent();
 
+            AutoUpdater.RunUpdateAsAdmin = false;
+            AutoUpdater.Start("https://raw.githubusercontent.com/ZCpU05/Visual-Based-Web-Markup-IDE/main/version.xml");
+
             openFileObject openedFile = new openFileObject("", "", "Unamed File"); //creates a deafult file to operate on. 
             openFiles.Add(openedFile);
             filesTabs.SelectedItem = openedFile;
@@ -89,7 +93,6 @@ namespace VWIDE
             Updater updater = new Updater();
             updater.missingFileHandler();
             updater.pluginLinkUpdater();
-            updater.programUpdater();
 
             phpEnabled = settingManager.getSetting(1); //line 1 in config.txt
             darkMode = settingManager.getSetting(2); //line 2 in config.txt

@@ -2,6 +2,90 @@
   "version": 3,
   "targets": {
     "net9.0-windows7.0": {
+      "Autoupdater.NET.Official/1.9.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Web.WebView2": "1.0.2592.51"
+        },
+        "compile": {
+          "lib/net8.0-windows7.0/AutoUpdater.NET.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/AutoUpdater.NET.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ],
+        "resource": {
+          "lib/net8.0-windows7.0/ar/AutoUpdater.NET.resources.dll": {
+            "locale": "ar"
+          },
+          "lib/net8.0-windows7.0/cs/AutoUpdater.NET.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0-windows7.0/da/AutoUpdater.NET.resources.dll": {
+            "locale": "da"
+          },
+          "lib/net8.0-windows7.0/de/AutoUpdater.NET.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0-windows7.0/es/AutoUpdater.NET.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0-windows7.0/fr/AutoUpdater.NET.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0-windows7.0/it/AutoUpdater.NET.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0-windows7.0/ja-JP/AutoUpdater.NET.resources.dll": {
+            "locale": "ja-JP"
+          },
+          "lib/net8.0-windows7.0/ko/AutoUpdater.NET.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0-windows7.0/lv/AutoUpdater.NET.resources.dll": {
+            "locale": "lv"
+          },
+          "lib/net8.0-windows7.0/nl/AutoUpdater.NET.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/net8.0-windows7.0/pl/AutoUpdater.NET.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0-windows7.0/pt-BR/AutoUpdater.NET.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0-windows7.0/pt/AutoUpdater.NET.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/net8.0-windows7.0/ru/AutoUpdater.NET.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0-windows7.0/sk/AutoUpdater.NET.resources.dll": {
+            "locale": "sk"
+          },
+          "lib/net8.0-windows7.0/sv/AutoUpdater.NET.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net8.0-windows7.0/th/AutoUpdater.NET.resources.dll": {
+            "locale": "th"
+          },
+          "lib/net8.0-windows7.0/tr/AutoUpdater.NET.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0-windows7.0/zh-TW/AutoUpdater.NET.resources.dll": {
+            "locale": "zh-TW"
+          },
+          "lib/net8.0-windows7.0/zh/AutoUpdater.NET.resources.dll": {
+            "locale": "zh"
+          }
+        }
+      },
       "AvalonEdit/6.3.1.120": {
         "type": "package",
         "compile": {
@@ -139,6 +223,162 @@
     }
   },
   "libraries": {
+    "Autoupdater.NET.Official/1.9.2": {
+      "sha512": "wVB0YMk5Dyc2UMUb46t5TVvzipfgkNHtuKh04wp14k/32nY7wMTz8gSMgiaX9WAHesW60K6J8uGz5G8gyGkEPQ==",
+      "type": "package",
+      "path": "autoupdater.net.official/1.9.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "autoupdater.net.official.1.9.2.nupkg.sha512",
+        "autoupdater.net.official.nuspec",
+        "docs/README.md",
+        "lib/net462/AutoUpdater.NET.dll",
+        "lib/net462/AutoUpdater.NET.pdb",
+        "lib/net462/AutoUpdater.NET.xml",
+        "lib/net462/ar/AutoUpdater.NET.resources.dll",
+        "lib/net462/cs/AutoUpdater.NET.resources.dll",
+        "lib/net462/da/AutoUpdater.NET.resources.dll",
+        "lib/net462/de/AutoUpdater.NET.resources.dll",
+        "lib/net462/es/AutoUpdater.NET.resources.dll",
+        "lib/net462/fr/AutoUpdater.NET.resources.dll",
+        "lib/net462/it/AutoUpdater.NET.resources.dll",
+        "lib/net462/ja-JP/AutoUpdater.NET.resources.dll",
+        "lib/net462/ko/AutoUpdater.NET.resources.dll",
+        "lib/net462/lv/AutoUpdater.NET.resources.dll",
+        "lib/net462/nl/AutoUpdater.NET.resources.dll",
+        "lib/net462/pl/AutoUpdater.NET.resources.dll",
+        "lib/net462/pt-BR/AutoUpdater.NET.resources.dll",
+        "lib/net462/pt/AutoUpdater.NET.resources.dll",
+        "lib/net462/ru/AutoUpdater.NET.resources.dll",
+        "lib/net462/sk/AutoUpdater.NET.resources.dll",
+        "lib/net462/sv/AutoUpdater.NET.resources.dll",
+        "lib/net462/th/AutoUpdater.NET.resources.dll",
+        "lib/net462/tr/AutoUpdater.NET.resources.dll",
+        "lib/net462/zh-TW/AutoUpdater.NET.resources.dll",
+        "lib/net462/zh/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/AutoUpdater.NET.dll",
+        "lib/net5.0-windows7.0/AutoUpdater.NET.pdb",
+        "lib/net5.0-windows7.0/AutoUpdater.NET.xml",
+        "lib/net5.0-windows7.0/ar/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/cs/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/da/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/de/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/es/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/fr/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/it/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/ja-JP/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/ko/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/lv/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/nl/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/pl/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/pt-BR/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/pt/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/ru/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/sk/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/sv/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/th/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/tr/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/zh-TW/AutoUpdater.NET.resources.dll",
+        "lib/net5.0-windows7.0/zh/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/AutoUpdater.NET.dll",
+        "lib/net6.0-windows7.0/AutoUpdater.NET.pdb",
+        "lib/net6.0-windows7.0/AutoUpdater.NET.xml",
+        "lib/net6.0-windows7.0/ar/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/cs/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/da/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/de/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/es/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/fr/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/it/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/ja-JP/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/ko/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/lv/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/nl/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/pl/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/pt-BR/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/pt/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/ru/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/sk/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/sv/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/th/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/tr/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/zh-TW/AutoUpdater.NET.resources.dll",
+        "lib/net6.0-windows7.0/zh/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/AutoUpdater.NET.dll",
+        "lib/net7.0-windows7.0/AutoUpdater.NET.pdb",
+        "lib/net7.0-windows7.0/AutoUpdater.NET.xml",
+        "lib/net7.0-windows7.0/ar/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/cs/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/da/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/de/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/es/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/fr/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/it/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/ja-JP/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/ko/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/lv/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/nl/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/pl/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/pt-BR/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/pt/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/ru/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/sk/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/sv/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/th/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/tr/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/zh-TW/AutoUpdater.NET.resources.dll",
+        "lib/net7.0-windows7.0/zh/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/AutoUpdater.NET.dll",
+        "lib/net8.0-windows7.0/AutoUpdater.NET.pdb",
+        "lib/net8.0-windows7.0/AutoUpdater.NET.xml",
+        "lib/net8.0-windows7.0/ar/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/cs/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/da/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/de/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/es/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/fr/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/it/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/ja-JP/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/ko/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/lv/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/nl/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/pl/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/pt-BR/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/pt/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/ru/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/sk/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/sv/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/th/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/tr/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/zh-TW/AutoUpdater.NET.resources.dll",
+        "lib/net8.0-windows7.0/zh/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/AutoUpdater.NET.dll",
+        "lib/netcoreapp3.1/AutoUpdater.NET.pdb",
+        "lib/netcoreapp3.1/AutoUpdater.NET.xml",
+        "lib/netcoreapp3.1/ar/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/cs/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/da/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/de/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/es/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/fr/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/it/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/ja-JP/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/ko/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/lv/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/nl/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/pl/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/pt-BR/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/pt/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/ru/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/sk/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/sv/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/th/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/tr/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/zh-TW/AutoUpdater.NET.resources.dll",
+        "lib/netcoreapp3.1/zh/AutoUpdater.NET.resources.dll"
+      ]
+    },
     "AvalonEdit/6.3.1.120": {
       "sha512": "6ASBKPzAg64BLDlFOJo4Ypr1sA/6hB5+TfHLJaZYUSTE0jgxvKlVqKeo/ISTG9qEMxu604qUu6BGugmJkfdrNw==",
       "type": "package",
@@ -336,6 +576,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0-windows7.0": [
+      "Autoupdater.NET.Official >= 1.9.2",
       "AvalonEdit >= 6.3.1.120",
       "External Langauage Manager >= 1.0.0",
       "LibGit2Sharp >= 0.31.0",
@@ -398,6 +639,10 @@
       "net9.0-windows7.0": {
         "targetAlias": "net9.0-windows",
         "dependencies": {
+          "Autoupdater.NET.Official": {
+            "target": "Package",
+            "version": "[1.9.2, )"
+          },
           "AvalonEdit": {
             "target": "Package",
             "version": "[6.3.1.120, )"

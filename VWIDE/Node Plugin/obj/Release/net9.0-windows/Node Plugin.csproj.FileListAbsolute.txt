@@ -1,0 +1,16 @@
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\bin\Release\net9.0-windows\Node Plugin.deps.json
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\bin\Release\net9.0-windows\Node Plugin.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\bin\Release\net9.0-windows\Node Plugin.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\bin\Release\net9.0-windows\External Langauage Manager.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\bin\Release\net9.0-windows\External Langauage Manager.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.csproj.AssemblyReference.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.AssemblyInfoInputs.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.AssemblyInfo.cs
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.csproj.CoreCompileInputs.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.sourcelink.json
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plu.BCC2B166.Up2Date
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\refint\Node Plugin.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\Node Plugin.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Node Plugin\obj\Release\net9.0-windows\ref\Node Plugin.dll

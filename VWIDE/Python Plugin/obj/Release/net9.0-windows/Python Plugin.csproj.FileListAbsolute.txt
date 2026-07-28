@@ -1,0 +1,16 @@
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\bin\Release\net9.0-windows\Python Plugin.deps.json
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\bin\Release\net9.0-windows\Python Plugin.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\bin\Release\net9.0-windows\Python Plugin.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\bin\Release\net9.0-windows\External Langauage Manager.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\bin\Release\net9.0-windows\External Langauage Manager.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.csproj.AssemblyReference.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.AssemblyInfoInputs.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.AssemblyInfo.cs
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.csproj.CoreCompileInputs.cache
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.sourcelink.json
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python P.2825CBAA.Up2Date
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\refint\Python Plugin.dll
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\Python Plugin.pdb
+C:\Users\ZCpU0\OneDrive\Documents\GitHub\Visual Based Web Markup IDE\Visual Based Web Markup IDE\VWIDE\Python Plugin\obj\Release\net9.0-windows\ref\Python Plugin.dll

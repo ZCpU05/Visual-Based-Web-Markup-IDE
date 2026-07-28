@@ -119,6 +119,10 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "dependencies": {
+            "Autoupdater.NET.Official": {
+              "target": "Package",
+              "version": "[1.9.2, )"
+            },
             "AvalonEdit": {
               "target": "Package",
               "version": "[6.3.1.120, )"
