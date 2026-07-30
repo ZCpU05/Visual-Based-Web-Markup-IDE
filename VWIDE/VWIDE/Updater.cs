@@ -11,6 +11,11 @@ using System.Windows;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace VWIDE
 {
@@ -18,7 +23,7 @@ namespace VWIDE
     {
         string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static readonly HttpClient client = new HttpClient();
-        public async Task pluginLinkUpdater()
+        public async Task pluginLinkUpdater() //Detects if the plugins are not the most recent version and notifies if an update is needed. 
         {
             try
             {
@@ -79,7 +84,7 @@ namespace VWIDE
             }
         }
 
-        public void missingFileHandler()
+        public void missingFileHandler() //Function to heal any missing files in the event that is needed
         {
             string VwIDEDataPath = Path.Combine(appDataPath, "VWIDE");
             if (!Directory.Exists(VwIDEDataPath))
@@ -122,20 +127,48 @@ namespace VWIDE
                     {
                         name = "python",
                         binaryLink = "https://www.python.org/ftp/python/3.13.14/python-3.13.14-embed-amd64.zip",
-                        scriptLink = "dummy",
+                        scriptLink = "",
                         version = "0.0.1"
                     },
                     new jsonStructure
                     {
                         name = "nodeJS",
                         binaryLink = "https://nodejs.org/dist/v24.18.0/node-v24.18.0-win-x64.zip",
-                        scriptLink = "dummy",
+                        scriptLink = "",
                         version = "0.0.1"
                     }
                 };
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string jsonString = JsonSerializer.Serialize(pluginStrcture, options);
                 File.WriteAllText(Path.Combine(VwIDEDataPath, "binaryInstallPaths.json"), jsonString);
+            }
+            if(!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins")))
+            {
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"));
+            }
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", "Custom Plugins")))
+            {
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins", "Custom Plugins"));
+            }
+            if(!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries")))
+            {
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries"));
+            }
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries")))
+            {
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Compatible Binaries"));
+            }
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Custom Binaries")))
+            {
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "Custom Binaries"));
+            }
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "php")))
+            {
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "php"));
+            }
+            if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "php", "php.exe")))
+            {
+                phpRestore();
             }
         }
         static string GetPluginDllName(string pluginName)
@@ -146,6 +179,32 @@ namespace VWIDE
                 "nodejs" => "Node.Plugin.dll",
                 _ => $"{pluginName}.Plugin.dll"
             };
+        }
+        async Task phpRestore()
+        {
+            HttpClient httpClient = new HttpClient();
+            string downloadPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                "Downloads",
+                $"php.zip"
+            );
+
+            byte[] fileBytes = await httpClient.GetByteArrayAsync("https://downloads.php.net/~windows/releases/archives/php-8.5.9-nts-Win32-vs17-x64.zip");
+            await File.WriteAllBytesAsync(downloadPath, fileBytes);
+
+            string extractEnd = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Binaries", "php");
+
+            if (!Directory.Exists(extractEnd))
+            {
+                Directory.CreateDirectory(extractEnd);
+            }
+
+            ZipFile.ExtractToDirectory(downloadPath, extractEnd, overwriteFiles: true);
+
+            if (File.Exists(downloadPath))
+            {
+                File.Delete(downloadPath);
+            }
         }
     }
     internal class jsonStructure

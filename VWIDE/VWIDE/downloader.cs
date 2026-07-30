@@ -10,7 +10,7 @@ using System.IO.Compression;
 
 namespace VWIDE
 {
-    public class downloader
+    public class downloader //object that handles downloading external plugins, held in a seperate object again for easier referencing, is only loaded when on the corosponding window. 
     {
         private readonly string[] languages = new string[] { "Python", "nodeJS" };
         public string chosenLanguage { get; private set; }
@@ -93,7 +93,7 @@ namespace VWIDE
         }
         public void uninstall(string targetedUninstall)
         {
-            if (targetedUninstall == "nodeJS")
+            if (targetedUninstall == "nodeJS") //Had to add this if statement and the one at line 106 due to a bug i couldn't fix otherwise due to a coding error
             {
                 targetedUninstall = "Node";
             }
@@ -114,7 +114,7 @@ namespace VWIDE
         }
     }
 
-    public class language
+    public class language //Constructs the object based of the JSON file. 
     {
         public string Name { get; set; }
         public string BinaryLink { get; set; }

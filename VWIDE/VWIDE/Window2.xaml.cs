@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 
 namespace VWIDE
 {
-    public partial class Window2 : Window
+    public partial class Window2 : Window //UI and UI logic for installing custom binaries
     {
         int globalY = 50;
         int customBinaryID = 0;
@@ -31,6 +31,8 @@ namespace VWIDE
             InitializeComponent();
             loadPrexistingCustomBinaries();
             this.Closing += Window2_Closing;
+            Updater updater = new Updater();
+            updater.missingFileHandler();
         }
 
         private void exit_Click(object sender, RoutedEventArgs e)

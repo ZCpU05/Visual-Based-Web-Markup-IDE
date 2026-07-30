@@ -11,8 +11,8 @@ using System.Windows;
 
 namespace VWIDE
 {
-    class customBinary
-    {
+    class customBinary //class that handles construction of custom built plugins, made from .txt files, allows for some basic functionality
+    { //it is the same as normal plugin in code but with file extension and exe binaries replaced with generic varribles, the txt files will give what to target. 
         public string binaryPath;
         public string fileExtension;
         public string langName;

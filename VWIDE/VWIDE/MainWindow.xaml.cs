@@ -25,12 +25,6 @@ using System.Xml;
 using System.Windows.Threading;
 using AutoUpdaterDotNET;
 
-/*
----TO DO---
-Comment Over all code
-error handling junk
-*/
-
 namespace VWIDE
 {
     /// <summary>
@@ -57,7 +51,7 @@ namespace VWIDE
         int currID = 0; //The current file the user is on. 
 
         string currentProjPath = string.Empty; //Set to default on startup allocated later, created here to be accessed globally
-        string currentGitProjPath = string.Empty;
+        //string currentGitProjPath = string.Empty;
 
         List<openFileObject> openFiles = new List<openFileObject>(); //List holds all the open files as well as there information
 
@@ -373,7 +367,7 @@ namespace VWIDE
             darkModeEnable();
         }
 
-        private void darkModeEnable()
+        private async void darkModeEnable()
         {
             if (darkMode == false) //Handles enabling and disabling dark mode
             {
@@ -382,6 +376,11 @@ namespace VWIDE
                 {
                     CurrentTextEditor.Background = Brushes.Black;
                     CurrentTextEditor.Foreground = Brushes.White;
+                    visualWebTester.CoreWebView2.Profile.PreferredColorScheme = Microsoft.Web.WebView2.Core.CoreWebView2PreferredColorScheme.Dark;
+                    this.Background = Brushes.Black;
+                    fileDirecotryView.Background = Brushes.Black;
+                    filesTabs.Background = Brushes.Black;
+                    filesTabs.Foreground = Brushes.White;
                 }
             }
             else
@@ -391,6 +390,12 @@ namespace VWIDE
                 {
                     CurrentTextEditor.Background = Brushes.White;
                     CurrentTextEditor.Foreground = Brushes.Black;
+                    await visualWebTester.EnsureCoreWebView2Async();
+                    visualWebTester.CoreWebView2.Profile.PreferredColorScheme = Microsoft.Web.WebView2.Core.CoreWebView2PreferredColorScheme.Light;
+                    this.Background = Brushes.White;
+                    fileDirecotryView.Background= Brushes.White;
+                    filesTabs.Background = Brushes.White;
+                    filesTabs.Foreground = Brushes.Black;
                 }
             }
             if (CurrentTextEditor != null)
@@ -776,7 +781,7 @@ namespace VWIDE
                         projectOpen = false;
                     }
 
-                    if (settingTarget == 3 && currentGitProjPath != string.Empty && githubEnabled == true)
+                    /*if (settingTarget == 3 && currentGitProjPath != string.Empty && githubEnabled == true)
                     {
                         string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "defaultGitRepo.txt");
                         File.WriteAllText(path, currentGitProjPath);
@@ -786,7 +791,7 @@ namespace VWIDE
                     {
                         MessageBox.Show("Error: Please set a github repo directiory before setting a default");
                         reporistoryEnabled = false;
-                    }
+                    }*/
                 }
                 settingMismatchCheck();
             }
@@ -1094,10 +1099,10 @@ namespace VWIDE
         }
     }
 
-    public class settingsManager
+    public class settingsManager //this class handles all settings and there associated functions, held in a seperate object to make referencing and managment easier
     {
-        string appVwIDE = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VwIDE");
-        public bool getSetting(int lineNum)
+        string appVwIDE = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VwIDE"); //Path to the config file
+        public bool getSetting(int lineNum) //gets the setting to be edited
         {
             try
             {
@@ -1120,7 +1125,7 @@ namespace VWIDE
             }
         }
 
-        public void saveSetting(List<string> settings)
+        public void saveSetting(List<string> settings) //saves the settings to there corosponding files
         {
             try
             {
@@ -1134,13 +1139,13 @@ namespace VWIDE
                     File.WriteAllText(filePathFontSize, settings[4]);
                 }
             }
-            catch
+            catch (Exception ex) 
             {
-
+                MessageBox.Show("An error has occoured" + ex.Message);
             }
         }
 
-        public string getDefaultProjectPath()
+        public string getDefaultProjectPath() //grabs the default project 
         {
             string projectPath = Path.Combine(appVwIDE, "defaultProjDir.txt");
             if (!File.Exists(projectPath)) return null;
@@ -1168,7 +1173,7 @@ namespace VWIDE
                 return ProjectDir;
             }
         }*/
-        public int getFontSize()
+        public int getFontSize() //gets the font size
         {
             string fontPath = Path.Combine(appVwIDE, "fontSize.txt");
             if (!File.Exists(fontPath)) return 12;

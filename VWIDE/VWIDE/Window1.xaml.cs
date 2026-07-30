@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace VWIDE
 {
-    public partial class Window1 : Window
+    public partial class Window1 : Window //UI and UI Logic for downloading plugins
     {
         string[] binaries = ["python", "nodeJS"];
         string[] exes = ["python.exe", "node.exe"];
@@ -12,6 +12,8 @@ namespace VWIDE
         {
             InitializeComponent();
             installCheck();
+            Updater updater = new Updater();
+            updater.missingFileHandler();
         }
         void installCheck()
         {
