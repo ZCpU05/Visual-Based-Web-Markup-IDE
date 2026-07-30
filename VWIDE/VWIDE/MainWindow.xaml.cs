@@ -31,6 +31,15 @@ namespace VWIDE
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
+
+    /*
+    ---TO DO---
+    Implement changes from 1.0.0.0 branch
+    Implement Github
+    Implement auto code compleition
+    Create C#/.Net Plugin
+    */
+
     public partial class MainWindow : Window
     {
         settingsManager settingManager = new settingsManager(); //creates object to handle all settings
